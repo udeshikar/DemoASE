@@ -28,91 +28,92 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.CommandLine = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.OutputWindow = new System.Windows.Forms.PictureBox();
+            this.ProgramWindow = new System.Windows.Forms.RichTextBox();
+            this.commandLine = new System.Windows.Forms.TextBox();
+            this.Btn_Run = new System.Windows.Forms.Button();
+            this.Btn_Syntax = new System.Windows.Forms.Button();
+            this.Btn_Clear = new System.Windows.Forms.Button();
+            this.Btn_Save = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.OutputWindow)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // OutputWindow
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(523, 82);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(493, 425);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.OutputWindow.Location = new System.Drawing.Point(523, 82);
+            this.OutputWindow.Name = "OutputWindow";
+            this.OutputWindow.Size = new System.Drawing.Size(493, 425);
+            this.OutputWindow.TabIndex = 0;
+            this.OutputWindow.TabStop = false;
+            this.OutputWindow.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             // 
-            // richTextBox1
+            // ProgramWindow
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(52, 82);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(424, 302);
-            this.richTextBox1.TabIndex = 1;
-            this.richTextBox1.Text = "";
+            this.ProgramWindow.Location = new System.Drawing.Point(52, 82);
+            this.ProgramWindow.Name = "ProgramWindow";
+            this.ProgramWindow.Size = new System.Drawing.Size(424, 302);
+            this.ProgramWindow.TabIndex = 1;
+            this.ProgramWindow.Text = "";
             // 
-            // CommandLine
+            // commandLine
             // 
-            this.CommandLine.Location = new System.Drawing.Point(52, 485);
-            this.CommandLine.Name = "CommandLine";
-            this.CommandLine.Size = new System.Drawing.Size(424, 22);
-            this.CommandLine.TabIndex = 2;
-            this.CommandLine.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CommandLine_KeyDown);
+            this.commandLine.Location = new System.Drawing.Point(52, 485);
+            this.commandLine.Name = "commandLine";
+            this.commandLine.Size = new System.Drawing.Size(424, 22);
+            this.commandLine.TabIndex = 2;
+            this.commandLine.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CommandLine_KeyDown);
             // 
-            // button1
+            // Btn_Run
             // 
-            this.button1.Location = new System.Drawing.Point(52, 560);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(189, 45);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Run";
-            this.button1.UseVisualStyleBackColor = true;
+            this.Btn_Run.Location = new System.Drawing.Point(52, 560);
+            this.Btn_Run.Name = "Btn_Run";
+            this.Btn_Run.Size = new System.Drawing.Size(189, 45);
+            this.Btn_Run.TabIndex = 3;
+            this.Btn_Run.Text = "Run";
+            this.Btn_Run.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // Btn_Syntax
             // 
-            this.button2.Location = new System.Drawing.Point(270, 560);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(253, 45);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Check Syntax";
-            this.button2.UseVisualStyleBackColor = true;
+            this.Btn_Syntax.Location = new System.Drawing.Point(270, 560);
+            this.Btn_Syntax.Name = "Btn_Syntax";
+            this.Btn_Syntax.Size = new System.Drawing.Size(253, 45);
+            this.Btn_Syntax.TabIndex = 4;
+            this.Btn_Syntax.Text = "Check Syntax";
+            this.Btn_Syntax.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // Btn_Clear
             // 
-            this.button3.Location = new System.Drawing.Point(565, 560);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(207, 44);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Clear";
-            this.button3.UseVisualStyleBackColor = true;
+            this.Btn_Clear.Location = new System.Drawing.Point(565, 560);
+            this.Btn_Clear.Name = "Btn_Clear";
+            this.Btn_Clear.Size = new System.Drawing.Size(207, 44);
+            this.Btn_Clear.TabIndex = 5;
+            this.Btn_Clear.Text = "Clear";
+            this.Btn_Clear.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // Btn_Save
             // 
-            this.button4.Location = new System.Drawing.Point(805, 560);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(210, 43);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "Save to Text";
-            this.button4.UseVisualStyleBackColor = true;
+            this.Btn_Save.Location = new System.Drawing.Point(805, 560);
+            this.Btn_Save.Name = "Btn_Save";
+            this.Btn_Save.Size = new System.Drawing.Size(210, 43);
+            this.Btn_Save.TabIndex = 6;
+            this.Btn_Save.Text = "Save to Text";
+            this.Btn_Save.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1088, 650);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.CommandLine);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.Btn_Save);
+            this.Controls.Add(this.Btn_Clear);
+            this.Controls.Add(this.Btn_Syntax);
+            this.Controls.Add(this.Btn_Run);
+            this.Controls.Add(this.commandLine);
+            this.Controls.Add(this.ProgramWindow);
+            this.Controls.Add(this.OutputWindow);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OutputWindow)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,13 +121,13 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.TextBox CommandLine;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.PictureBox OutputWindow;
+        private System.Windows.Forms.RichTextBox ProgramWindow;
+        private System.Windows.Forms.TextBox commandLine;
+        private System.Windows.Forms.Button Btn_Run;
+        private System.Windows.Forms.Button Btn_Syntax;
+        private System.Windows.Forms.Button Btn_Clear;
+        private System.Windows.Forms.Button Btn_Save;
     }
 }
 

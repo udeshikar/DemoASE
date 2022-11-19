@@ -6,39 +6,48 @@ using System.Threading.Tasks;
 
 namespace ProgrammingLanguage
 {
-    class DrawTo : DrawCommand
+    class DrawTo 
     {
         protected int xPos, yPos;
+        Canvas canvas;
 
         public DrawTo()
         {
 
         }
 
-        public DrawTo(Canvas canvas, int xPos, int yPos) : base(canvas)
+        public DrawTo(Canvas canvas, int xPos, int yPos) 
         {
+            this.canvas = canvas;
             this.xPos = xPos;
             this.yPos = yPos;
-            Name = "DrawTo";
+            //Name = "DrawTo";
         }
 
-        public void Set(Canvas canvas, String name, int x, int y)
+        public void Execute()
         {
-            base.Set(canvas, name);
-            this.xPos = x;
-            this.yPos = y;
+            canvas.DrawTo(xPos, yPos);
         }
 
-        public override void Execute()
-        {
-            try
-            {
-                canvas.DrawTo(xPos, yPos);
-            }
-            catch(ApplicationException e)
-            {
+        //public void Set(Canvas canvas, String name, int x, int y)
+        //{
+        //base.Set(canvas, name);
+        //this.xPos = x;
+        //this.yPos = y;
+        //}
 
-            }
-        }
+        //public override void Execute()
+        //{
+        //    try
+        //    {
+        //        canvas.DrawTo(xPos, yPos);
+        //    }
+        //    catch(ApplicationException e)
+        //    {
+
+        //    }
+        //}
+
+        
     }
 }

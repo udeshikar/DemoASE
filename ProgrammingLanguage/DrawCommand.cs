@@ -8,7 +8,8 @@ namespace ProgrammingLanguage
 {
     public abstract class DrawCommand : Command
     {
-        protected Canvas canvas;
+        private Canvas canvas;
+        String name;
 
         public DrawCommand()
         {
@@ -19,10 +20,10 @@ namespace ProgrammingLanguage
         /// Immediate execution of moving cursor to x,y
         /// </summary>
         /// <param name="canvas"></param>
-        public DrawCommand(Canvas canvas)
-        {
-            this.canvas = canvas;
-        }
+        //public DrawCommand(Canvas canvas)
+        //{
+        //   this.canvas = canvas;
+        //}
 
         /// <summary>
         /// Parse the parameters to the derived class and set them up
@@ -30,15 +31,15 @@ namespace ProgrammingLanguage
         /// <param name="ParameterList"></param>
         public abstract void ParseParameters(int[] ParameterList);
 
-        public void Set(Canvas canvas, StoredProgram program, String Name)
-        {
-            base.Set(Program, Name, "");
-            this.canvas = canvas;
-        }
+        //public void Set(Canvas canvas, StoredProgram program, String Name)
+        //{
+            //base.Set(Program, Name, "");
+            //this.canvas = canvas;
+       // }
 
-        public Canvas Canvas()
-        {
-            return canvas;
-        }
+        //public Canvas Canvas()
+       // {
+          //  return canvas;
+       // }
     }
 }

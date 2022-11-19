@@ -12,7 +12,7 @@ namespace ProgrammingLanguage
     public abstract class Command : Commands
     {
         private String name = "";
-        private StoredProgram program;
+       // private StoredProgram program;
         private String parameterlist; //original parameter list
 
         public Command()
@@ -26,7 +26,7 @@ namespace ProgrammingLanguage
         /// <returns>false if a conditional command returned a negative value</returns>
         public abstract bool Execute(); //run this command, return whether the next command should be executed
 
-        public StoredProgram Program()
+       // public StoredProgram Program()
 
 
     }

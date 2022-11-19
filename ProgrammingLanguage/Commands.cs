@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProgrammingLanguage
 {
     
-    interface Commands
+    public interface Commands
     {
         /// <summary>
         /// Execute the given command

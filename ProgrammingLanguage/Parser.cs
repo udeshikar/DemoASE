@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,15 +11,26 @@ namespace ProgrammingLanguage
     {
         private const int MaxParams = 10;
         Canvas Canvas;
+        Circle circle;
+        Rectangle rect;
+        bool draw;
+        DrawTo drawLine;
+
+        public Parser()
+        {
+        }
 
         public Parser(Canvas canvas)
         {
             this.Canvas = canvas;
-            canvas.updateCursor();
+            Console.WriteLine("Parser constructor called");
+            
+           // canvas.updateCursor();
         }
 
-        public Command ParseCommand(String line, bool execute)
+        public void ParseCommand(string line, bool execute)
         {
+            Console.WriteLine("inside parse method");
             int x = 0, y = 0;
             line = line.Trim();
             if (line.Length == 0)
@@ -31,7 +43,8 @@ namespace ProgrammingLanguage
 
             Command = split[0];
 
-            if(split.Length > 1)
+            
+            if (split.Length > 1 & Command.Equals("pen") == false)
             {
                 Parameters = split[1].Split(',');
 
@@ -40,7 +53,8 @@ namespace ProgrammingLanguage
                 {
                     try
                     {
-                        ParamsInt[i] = Int32.Parse(Parameters[i]);
+                        ParamList[i] = Int32.Parse(Parameters[i]);
+                        Console.WriteLine(ParamList[i]);
                     }
                     catch(FormatException e)
                     {
@@ -49,35 +63,56 @@ namespace ProgrammingLanguage
                 }
             }
 
-            if(Command.Equals("moveto") == "true")
+            else if (Command.Equals("pen") == true)
             {
-                if (Parameters.Length != 2)
-                    throw new ApplicationException("\n Invalid number of parameters for moveTo");
-
-                MoveTo c = (MoveTo)CommFactory.MakeCommand("moveto");
-                c.Set(Canvas, "MoveTo", ParamsInt[0], ParamsInt[1]);
-                if(execute) c.Execute();
-                return c;
+                Canvas.PenColor(split[1]);
             }
-            else if (Command.Equals("drawto") == "true")
-            {
-                if (Parameters.Length != 2)
-                    throw new ApplicationException("\n Invalid number of parameters for drawTo");
 
-                MoveTo c = (MoveTo)CommFactory.MakeCommand("drawto");
-                c.Set(Canvas, "DrawTo", ParamsInt[0], ParamsInt[1]);
-                if (execute) c.Execute();
-                return c;
-            }
-            else if(Command.Equals("circle") == true)
+
+
+            if(Command.Equals("circle") == true)
             {
                 if (Parameters.Length != 1)
                     throw new ApplicationException("\nInvalid number of parameters for circle");
 
-                Circle c = (Circle)CommFactory.MakeCommand("circle");
-                if(execute) c.Execute();
-                return c;
+                circle = new Circle(Canvas, ParamList[0]);
+                circle.Execute();
+                //Canvas.Circle(ParamList[0]);
             }
+
+            else if (Command.Equals("rect") == true)
+            {
+                if (Parameters.Length != 2)
+                    throw new ApplicationException("\nInvalid number of parameters for Rectangle");
+
+                rect = new Rectangle(Canvas, ParamList[0], ParamList[1]);
+                rect.Execute();
+            }
+
+            else if (Command.Equals("drawto") == true)
+            {
+                if (Parameters.Length != 2)
+                    throw new ApplicationException("\nInvalid number of parameters for Line");
+
+                drawLine = new DrawTo(Canvas, ParamList[0], ParamList[1]);
+                drawLine.Execute();
+            }
+
+            else if(Command.Equals("moveto") == true)
+            {
+                Canvas.MoveTo(ParamList[0], ParamList[1]);
+            }
+
+            else if(Command.Equals("clear") == true)
+            {
+                Canvas.Clear();
+            }
+
+            else if(Command.Equals("reset") == true)
+            {
+                Canvas.Reset();
+            }
+
         }
     }
 }

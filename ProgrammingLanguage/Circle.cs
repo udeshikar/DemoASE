@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace ProgrammingLanguage
 {
-    class Circle : DrawCommand
+    class Circle 
     {
+        Canvas canvas;
         int radius;
+        String name;
 
         public Circle()
         {
@@ -21,21 +23,16 @@ namespace ProgrammingLanguage
         /// </summary>
         /// <param name="Canvase">Canvase this command is affecting</param>
         /// <param name="radius">radius of the circle</param>
-        public Circle(Canvas canvas, int radius) : base(canvas)
+        public Circle(Canvas canvas, int radius) 
         {
-            Name = "Circle";
+            this.canvas = canvas;
             this.radius = radius;
         }
 
-        public override bool Execute()
+        public void Execute()
         {
-            this.ProcessParameters("=" + this.ParameterList, out int[] ParamsInt);
-            this.ParseParameters(ParamsInt);
-            this.radius = ParamsInt[0];
             canvas.Circle(radius);
-            return true;
         }
 
-        //public new void Set(Canvas canvas, StoredProgram program, String Parameters)
     }
 }

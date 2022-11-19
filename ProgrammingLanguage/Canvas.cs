@@ -15,9 +15,13 @@ namespace ProgrammingLanguage
     {
         //instance data for pen and x,y positions and  graphics context
         Graphics g, cursorG;
-        int XCanvasSize, YCanvasSize;
+        int XCanvasSize = 493; 
+        int YCanvasSize = 425;
         Pen pen;
         int xPos, yPos;
+        int toX = 0;
+        int toY = 0;
+        public bool draw = true;
 
         /// <summary>
         /// Constructor initialize canvas to black pen at 0,0
@@ -34,17 +38,13 @@ namespace ProgrammingLanguage
         {
             this.g=g;
             this.cursorG = cursorG;
-            XCanvasSize = XSize;
-            YCanvasSize = YSize;
+            //XCanvasSize = ;
+            //YCanvasSize = YSize;
             xPos = yPos = 0;
             pen = new Pen(Color.Black, 1);
 
         }
 
-        public void Clear()
-        {
-           // g.Clear(background_color);
-        }
 
 
         /// <summary>
@@ -66,17 +66,17 @@ namespace ProgrammingLanguage
             g.DrawLine(pen, xPos, yPos, toX, toY);
             xPos = toX;
             yPos= toY;
-            updateCursor();
+           // updateCursor();
         }
 
         public void MoveTo(int x, int y)
         {
-            if (toX < 0 || toX > XCanvasSize || toY < 0 || toY > YCanvasSize)
+            if (x < 0 || x > XCanvasSize || y < 0 || y > YCanvasSize)
                 throw new ApplicationException("Invalid Screen Position");
-            g.DrawLine(pen, xPos, yPos, toX, toY);
+            //g.DrawLine(pen, xPos, yPos, toX, toY);
             xPos = x;
             yPos = y;
-            updateCursor();
+           // updateCursor();
         }
 
         /// <summary>
@@ -104,6 +104,42 @@ namespace ProgrammingLanguage
             if (width < 0 || height < 0)
                 throw new ApplicationException("\ninvalid rectangle size");
             g.DrawRectangle(pen, xPos-(width/2), yPos-(width/2), width, height);
+        }
+
+        public void Clear()
+        {
+            this.draw = false;
+        }
+
+        //public static implicit operator Canvas(Graphics v)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public void Reset()
+        {
+            this.xPos = 0; 
+            this.yPos = 0;
+        }
+
+        public void PenColor(String color)
+        {
+            if(color == "red")
+            {
+                this.pen = new Pen(Color.Red, 1);
+            }
+            else if(color == "blue")
+            {
+                this.pen = new Pen(Color.Blue, 1);
+            }
+            else if(color == "green")
+            {
+                this.pen = new Pen(Color.Green, 1);
+            }
+            else
+            {
+                this.pen = new Pen(Color.Black, 1);
+            }
         }
     }
 }

@@ -13,19 +13,32 @@ namespace ProgrammingLanguage
     public partial class Form1 : Form
     {
         Bitmap OutputBitmap = new Bitmap(640, 480);
-        Canvas MyCanvas;
+        Canvas MyCanvas ;
+        Parser parser;
+        bool draw;
+
         public Form1()
         {
             InitializeComponent();
+            //Console.WriteLine(parser.ToString());
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
+            Console.WriteLine(MyCanvas.ToString());
+            parser = new Parser(MyCanvas);
+            Console.WriteLine(parser.ToString());
         }
+
+        
 
         private void CommandLine_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 //read command line get rid of trailing spaces and convert to lower case
-                //String Command = commandLine.Text.Trim().ToLower(); 
+                String Command = commandLine.Text.Trim().ToLower();
+
+                parser.ParseCommand(Command, true);
+
+                
                 //if(Command == ("line") == true)
                 //{
                  //   MyCanvas.DrawLine(160, 120);
@@ -40,11 +53,15 @@ namespace ProgrammingLanguage
               //  Refresh();
 
                 e.SuppressKeyPress = true;
+                OutputWindow.Invalidate();
+                commandLine.Text = "";
+                //clear_OutputWindow();
+                
 
-                try
-                {
-                    
-                }
+                //try
+                //{
+
+                //}
 
 
             }
@@ -52,8 +69,25 @@ namespace ProgrammingLanguage
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics; // get graphics context of form
-            g.DrawImageUnscaled(OutputBitmap, 0, 0);// put the off screen bitmap on the form
-        }
+            this.draw = MyCanvas.draw;
+            if (draw == true)
+            {
+                Graphics g = e.Graphics; // get graphics context of form
+                g.DrawImageUnscaled(OutputBitmap, 0, 0);// put the off screen bitmap on the form
+            }
+
+            else if (draw == false)
+            {
+                e.Graphics.Clear(Color.White);
+                this.draw = true;
+                MyCanvas.draw = true;
+                this.Invalidate();  
+                
+                
+            }
+
+            }
+        
+        
     }
 }

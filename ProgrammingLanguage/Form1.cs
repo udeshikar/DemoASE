@@ -91,7 +91,9 @@ namespace ProgrammingLanguage
 
         private void Btn_Syntax_Click(object sender, EventArgs e)
         {
-
+            string[] text = ProgramWindow.Lines;
+            program = new ProgramWindowHandler(parser);
+            program.SeperateLines(text);
         }
 
         private void Btn_Run_Click(object sender, EventArgs e)
@@ -100,7 +102,7 @@ namespace ProgrammingLanguage
             program = new ProgramWindowHandler(parser);
             program.SeperateLines(text);
             OutputWindow.Invalidate();
-            ProgramWindow.Clear();
+            //ProgramWindow.Clear();
         }
 
         private void Btn_Save_Click(object sender, EventArgs e)

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ProgrammingLanguage
 {
@@ -34,31 +35,11 @@ namespace ProgrammingLanguage
             pen = new Pen(Color.Black, 1);
         }
 
-        public Canvas(Graphics g, Graphics cursorG) 
-        {
-            this.g=g;
-            this.cursorG = cursorG;
-            //XCanvasSize = ;
-            //YCanvasSize = YSize;
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
-
-        }
-
-
-
         /// <summary>
         /// Draw a line from current Pen position (xPos, yPos)
         /// </summary>
         /// <param name="toX">X position to draw to</param>
         /// <param name="toY">Y position to draw to</param>
-        public void DrawLine(int toX, int toY)
-        {
-            g.DrawLine(pen, xPos, yPos, toX, toY);
-            xPos = toX;
-            yPos = toY;
-        }
-
         public void DrawTo(int toX, int toY)
         {
             if (toX < 0 || toX > XCanvasSize || toY < 0 || toY > YCanvasSize)
@@ -69,23 +50,22 @@ namespace ProgrammingLanguage
            // updateCursor();
         }
 
+        /// <summary>
+        /// Move the current position of the cursor
+        /// </summary>
+        /// <param name="x">new x value</param>
+        /// <param name="y">new y value</param>
         public void MoveTo(int x, int y)
         {
             if (x < 0 || x > XCanvasSize || y < 0 || y > YCanvasSize)
-                throw new ApplicationException("Invalid Screen Position");
-            //g.DrawLine(pen, xPos, yPos, toX, toY);
+            {
+                //throw new ApplicationException("Invalid Screen Position");
+                MessageBox.Show("Invalid Screen Position");
+                return;
+            }
+
             xPos = x;
             yPos = y;
-           // updateCursor();
-        }
-
-        /// <summary>
-        /// Draw a rectangle from current pen position
-        /// </summary>
-        /// <param name="width">Width of the rectangle to be drawn</param>
-        public void DrawSquare(int width)
-        {
-            g.DrawRectangle(pen, xPos, yPos, xPos + width, yPos + width);
         }
 
         /// <summary>
@@ -95,14 +75,28 @@ namespace ProgrammingLanguage
         public void Circle(int radius)
         {
             if (radius < 0)
-                throw new ApplicationException("\ninvalid size for radius");
-                g.DrawEllipse(pen, xPos-radius, yPos-radius, radius * 2, radius * 2);
+            {
+                //throw new ApplicationException("\ninvalid size for radius");
+                MessageBox.Show("invalid size for radius");
+                return;
+            }
+               
+            g.DrawEllipse(pen, xPos-radius, yPos-radius, radius * 2, radius * 2);
         }
 
+        /// <summary>
+        /// Draw a rectangle from current pen position
+        /// </summary>
+        /// <param name="width">Width of the rectangle to be drawn</param>
         public void Rect(int width, int height)
         {
             if (width < 0 || height < 0)
-                throw new ApplicationException("\ninvalid rectangle size");
+            {
+                //throw new ApplicationException("\ninvalid rectangle size");
+                MessageBox.Show("invalid rectangle size");
+                return;
+            }
+                
             g.DrawRectangle(pen, xPos-(width/2), yPos-(width/2), width, height);
         }
 
@@ -111,17 +105,19 @@ namespace ProgrammingLanguage
             this.draw = false;
         }
 
-        //public static implicit operator Canvas(Graphics v)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
+        /// <summary>
+        /// Set the cursor back to the initial position
+        /// </summary>
         public void Reset()
         {
             this.xPos = 0; 
             this.yPos = 0;
         }
 
+        /// <summary>
+        /// Set a given color for pen
+        /// </summary>
+        /// <param name="color"></param>
         public void PenColor(String color)
         {
             if(color == "red")
@@ -136,9 +132,14 @@ namespace ProgrammingLanguage
             {
                 this.pen = new Pen(Color.Green, 1);
             }
-            else
+            else if(color == "black")
             {
                 this.pen = new Pen(Color.Black, 1);
+            }
+            else
+            {
+                MessageBox.Show("Value is not accepted for given colors");
+                return;
             }
         }
     }

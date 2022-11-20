@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ProgrammingLanguage
 {
@@ -30,7 +32,12 @@ namespace ProgrammingLanguage
             //int x = 0, y = 0;
             line = line.Trim();
             if (line.Length == 0)
-                throw new ApplicationException("\nCommand was blank ");
+            {
+                //throw new ApplicationException("\nCommand was blank ");
+                MessageBox.Show("Command was blank");
+                return;
+            }
+           
             String Command;
 
             String[] split = line.Split(' ');
@@ -54,7 +61,8 @@ namespace ProgrammingLanguage
                     }
                     catch(FormatException e)
                     {
-                        throw new ApplicationException("\n Not a numeric parameter ");
+                        //throw new ApplicationException("\n Not a numeric parameter ");
+                        MessageBox.Show("Not a numeric parameter");
                     }
                 }
             }
@@ -69,18 +77,26 @@ namespace ProgrammingLanguage
             if(Command.Equals("circle") == true)
             {
                 if (Parameters.Length != 1)
-                    throw new ApplicationException("\nInvalid number of parameters for circle");
-
+                {
+                    //throw new ApplicationException("\nInvalid number of parameters for circle");
+                    MessageBox.Show("Invalid number of parameters for circle");
+                    return;
+                }
+                    
                 circle = new Circle(Canvas, ParamList[0]);
                 circle.Execute();
                 //Canvas.Circle(ParamList[0]);
             }
 
-            else if (Command.Equals("rect") == true)
+            else if (Command.Equals("rectangle") == true)
             {
                 if (Parameters.Length != 2)
-                    throw new ApplicationException("\nInvalid number of parameters for Rectangle");
-
+                {
+                    //throw new ApplicationException("\nInvalid number of parameters for Rectangle");
+                    MessageBox.Show("Invalid number of parameters for Rectangle");
+                    return;
+                }
+                    
                 rect = new Rectangle(Canvas, ParamList[0], ParamList[1]);
                 rect.Execute();
             }
@@ -88,7 +104,11 @@ namespace ProgrammingLanguage
             else if (Command.Equals("drawto") == true)
             {
                 if (Parameters.Length != 2)
-                    throw new ApplicationException("\nInvalid number of parameters for Line");
+                {
+                    //throw new ApplicationException("\nInvalid number of parameters for Line");
+                    MessageBox.Show("Invalid number of parameters for Line");
+                    return;
+                }
 
                 drawLine = new DrawTo(Canvas, ParamList[0], ParamList[1]);
                 drawLine.Execute();
@@ -107,6 +127,10 @@ namespace ProgrammingLanguage
             else if(Command.Equals("reset") == true)
             {
                 Canvas.Reset();
+            }
+            else
+            {
+                MessageBox.Show("Not a valid command");
             }
 
         }

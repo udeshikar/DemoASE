@@ -18,14 +18,12 @@ namespace ProgrammingLanguage
         ProgramWindowHandler program;
         bool draw;
 
+
         public Form1()
         {
             InitializeComponent();
-            //Console.WriteLine(parser.ToString());
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
-            Console.WriteLine(MyCanvas.ToString());
             parser = new Parser(MyCanvas);
-            Console.WriteLine(parser.ToString());
         }
 
         
@@ -39,32 +37,11 @@ namespace ProgrammingLanguage
 
                 parser.ParseCommand(Command, true);
 
-                
-                //if(Command == ("line") == true)
-                //{
-                 //   MyCanvas.DrawLine(160, 120);
-                  //  Console.WriteLine("Line");
-                //}
-                //else if(Command == ("square") == true)
-               // {
-                   // MyCanvas.DrawSquare(25);
-                   // Console.WriteLine("Square");
-               // }
-                //commandLine.Text == "";
-              //  Refresh();
-
                 e.SuppressKeyPress = true;
                 OutputWindow.Invalidate();
                 commandLine.Text = "";
                 //clear_OutputWindow();
-                
-
-                //try
-                //{
-
-                //}
-
-
+               
             }
         }
 

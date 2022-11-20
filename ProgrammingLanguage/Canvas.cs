@@ -23,7 +23,8 @@ namespace ProgrammingLanguage
         int toX = 0;
         int toY = 0;
         public bool draw = true;
-
+        int currentX, currentY;
+        
         /// <summary>
         /// Constructor initialize canvas to black pen at 0,0
         /// </summary>
@@ -43,7 +44,12 @@ namespace ProgrammingLanguage
         public void DrawTo(int toX, int toY)
         {
             if (toX < 0 || toX > XCanvasSize || toY < 0 || toY > YCanvasSize)
-                throw new ApplicationException("Invalid Screen Position");
+            {
+                //throw new ApplicationException("Invalid Screen Position");
+                MessageBox.Show("Invalid Screen Position");
+                return;
+            }
+                
             g.DrawLine(pen, xPos, yPos, toX, toY);
             xPos = toX;
             yPos= toY;
@@ -98,6 +104,29 @@ namespace ProgrammingLanguage
             }
                 
             g.DrawRectangle(pen, xPos-(width/2), yPos-(width/2), width, height);
+        }
+
+        /// <summary>
+        /// Draw a triangle from current pen position
+        /// </summary>
+        /// <param name="p1">x value of second point of rectangle</param>
+        /// <param name="p2">y value of second point of rectangle</param>
+        /// <param name="p3">x value of third point of rectangle</param>
+        /// <param name="p4">y value of third point of rectangle</param>
+        public void Triangle(int p1, int p2, int p3, int p4)
+        {
+            if(p1 < 0 || p2 < 0 || p3 < 0 || p4 < 0)
+            {
+                MessageBox.Show("invalid traingle size");
+                return;
+            }
+
+            currentX = xPos;
+            currentY = yPos;
+
+            this.DrawTo(p1, p2);
+            this.DrawTo(p3, p4);
+            this.DrawTo(currentX, currentY);
         }
 
         public void Clear()

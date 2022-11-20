@@ -17,6 +17,7 @@ namespace ProgrammingLanguage
         Rectangle rect;
         bool draw;
         DrawTo drawLine;
+        Triangle triangle;
 
         public Parser()
         {
@@ -27,6 +28,11 @@ namespace ProgrammingLanguage
             this.Canvas = canvas;
         }
 
+        /// <summary>
+        /// Parsing the user commands
+        /// </summary>
+        /// <param name="line">user input command</param>
+        /// <param name="execute"></param>
         public void ParseCommand(string line, bool execute)
         {
             //int x = 0, y = 0;
@@ -99,6 +105,18 @@ namespace ProgrammingLanguage
                     
                 rect = new Rectangle(Canvas, ParamList[0], ParamList[1]);
                 rect.Execute();
+            }
+
+            else if(Command.Equals("triangle") == true)
+            {
+                if(Parameters.Length != 4)
+                {
+                    MessageBox.Show("Invalid number of parameters for Triangle");
+                    return;
+                }
+
+                triangle = new Triangle(Canvas, ParamList[0], ParamList[1], ParamList[2], ParamList[3]);
+                triangle.Execute();
             }
 
             else if (Command.Equals("drawto") == true)

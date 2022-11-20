@@ -15,6 +15,7 @@ namespace ProgrammingLanguage
         Bitmap OutputBitmap = new Bitmap(640, 480);
         Canvas MyCanvas ;
         Parser parser;
+        ProgramWindowHandler program;
         bool draw;
 
         public Form1()
@@ -81,13 +82,25 @@ namespace ProgrammingLanguage
                 e.Graphics.Clear(Color.White);
                 this.draw = true;
                 MyCanvas.draw = true;
-                this.Invalidate();  
+                OutputWindow.Invalidate(); 
                 
                 
             }
 
             }
-        
-        
+
+        private void Btn_Syntax_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Btn_Run_Click(object sender, EventArgs e)
+        {
+            string[] text = ProgramWindow.Lines;
+            program = new ProgramWindowHandler(parser);
+            program.SeperateLines(text);
+            OutputWindow.Invalidate();
+            ProgramWindow.Clear();
+        }
     }
 }

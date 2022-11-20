@@ -33,14 +33,13 @@
             this.commandLine = new System.Windows.Forms.TextBox();
             this.Btn_Run = new System.Windows.Forms.Button();
             this.Btn_Syntax = new System.Windows.Forms.Button();
-            this.Btn_Clear = new System.Windows.Forms.Button();
             this.Btn_Save = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.OutputWindow)).BeginInit();
             this.SuspendLayout();
             // 
             // OutputWindow
             // 
-            this.OutputWindow.BackColor = System.Drawing.SystemColors.Control;
+            this.OutputWindow.BackColor = System.Drawing.SystemColors.ControlDark;
             this.OutputWindow.Location = new System.Drawing.Point(523, 82);
             this.OutputWindow.Name = "OutputWindow";
             this.OutputWindow.Size = new System.Drawing.Size(493, 425);
@@ -66,36 +65,29 @@
             // 
             // Btn_Run
             // 
-            this.Btn_Run.Location = new System.Drawing.Point(52, 560);
+            this.Btn_Run.Location = new System.Drawing.Point(52, 406);
             this.Btn_Run.Name = "Btn_Run";
-            this.Btn_Run.Size = new System.Drawing.Size(189, 45);
+            this.Btn_Run.Size = new System.Drawing.Size(107, 45);
             this.Btn_Run.TabIndex = 3;
             this.Btn_Run.Text = "Run";
             this.Btn_Run.UseVisualStyleBackColor = true;
+            this.Btn_Run.Click += new System.EventHandler(this.Btn_Run_Click);
             // 
             // Btn_Syntax
             // 
-            this.Btn_Syntax.Location = new System.Drawing.Point(270, 560);
+            this.Btn_Syntax.Location = new System.Drawing.Point(210, 406);
             this.Btn_Syntax.Name = "Btn_Syntax";
-            this.Btn_Syntax.Size = new System.Drawing.Size(253, 45);
+            this.Btn_Syntax.Size = new System.Drawing.Size(109, 45);
             this.Btn_Syntax.TabIndex = 4;
             this.Btn_Syntax.Text = "Check Syntax";
             this.Btn_Syntax.UseVisualStyleBackColor = true;
-            // 
-            // Btn_Clear
-            // 
-            this.Btn_Clear.Location = new System.Drawing.Point(565, 560);
-            this.Btn_Clear.Name = "Btn_Clear";
-            this.Btn_Clear.Size = new System.Drawing.Size(207, 44);
-            this.Btn_Clear.TabIndex = 5;
-            this.Btn_Clear.Text = "Clear";
-            this.Btn_Clear.UseVisualStyleBackColor = true;
+            this.Btn_Syntax.Click += new System.EventHandler(this.Btn_Syntax_Click);
             // 
             // Btn_Save
             // 
-            this.Btn_Save.Location = new System.Drawing.Point(805, 560);
+            this.Btn_Save.Location = new System.Drawing.Point(372, 406);
             this.Btn_Save.Name = "Btn_Save";
-            this.Btn_Save.Size = new System.Drawing.Size(210, 43);
+            this.Btn_Save.Size = new System.Drawing.Size(104, 45);
             this.Btn_Save.TabIndex = 6;
             this.Btn_Save.Text = "Save to Text";
             this.Btn_Save.UseVisualStyleBackColor = true;
@@ -106,7 +98,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1088, 650);
             this.Controls.Add(this.Btn_Save);
-            this.Controls.Add(this.Btn_Clear);
             this.Controls.Add(this.Btn_Syntax);
             this.Controls.Add(this.Btn_Run);
             this.Controls.Add(this.commandLine);
@@ -127,7 +118,6 @@
         private System.Windows.Forms.TextBox commandLine;
         private System.Windows.Forms.Button Btn_Run;
         private System.Windows.Forms.Button Btn_Syntax;
-        private System.Windows.Forms.Button Btn_Clear;
         private System.Windows.Forms.Button Btn_Save;
     }
 }

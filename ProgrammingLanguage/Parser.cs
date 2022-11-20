@@ -23,15 +23,11 @@ namespace ProgrammingLanguage
         public Parser(Canvas canvas)
         {
             this.Canvas = canvas;
-            Console.WriteLine("Parser constructor called");
-            
-           // canvas.updateCursor();
         }
 
         public void ParseCommand(string line, bool execute)
         {
-            Console.WriteLine("inside parse method");
-            int x = 0, y = 0;
+            //int x = 0, y = 0;
             line = line.Trim();
             if (line.Length == 0)
                 throw new ApplicationException("\nCommand was blank ");

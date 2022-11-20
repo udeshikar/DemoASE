@@ -102,5 +102,20 @@ namespace ProgrammingLanguage
             OutputWindow.Invalidate();
             ProgramWindow.Clear();
         }
+
+        private void Btn_Save_Click(object sender, EventArgs e)
+        {
+            String path = "E:\\Lectures\\Assignment\\saved.txt";
+            System.IO.File.WriteAllText(@path, ProgramWindow.Text.Replace("\n", Environment.NewLine));
+        }
+
+        private void Btn_Load_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ProgramWindow.LoadFile(openFileDialog.FileName, RichTextBoxStreamType.PlainText);
+            }
+        }
     }
 }

@@ -40,7 +40,7 @@ namespace ProgrammingLanguage
             if (line.Length == 0)
             {
                 //throw new ApplicationException("\nCommand was blank ");
-                MessageBox.Show("Command was blank");
+                Canvas.ErrorMessage("Command was blank");
                 return;
             }
            
@@ -63,12 +63,11 @@ namespace ProgrammingLanguage
                     try
                     {
                         ParamList[i] = Int32.Parse(Parameters[i]);
-                        Console.WriteLine(ParamList[i]);
                     }
                     catch(FormatException e)
                     {
                         //throw new ApplicationException("\n Not a numeric parameter ");
-                        MessageBox.Show("Not a numeric parameter");
+                        Canvas.ErrorMessage("Not a numeric parameter");
                     }
                 }
             }
@@ -85,7 +84,7 @@ namespace ProgrammingLanguage
                 if (Parameters.Length != 1)
                 {
                     //throw new ApplicationException("\nInvalid number of parameters for circle");
-                    MessageBox.Show("Invalid number of parameters for circle");
+                    Canvas.ErrorMessage("Invalid number of parameters for circle");
                     return;
                 }
                     
@@ -94,12 +93,12 @@ namespace ProgrammingLanguage
                 //Canvas.Circle(ParamList[0]);
             }
 
-            else if (Command.Equals("rectangle") == true)
+            else if (Command.Equals("rect") == true)
             {
                 if (Parameters.Length != 2)
                 {
                     //throw new ApplicationException("\nInvalid number of parameters for Rectangle");
-                    MessageBox.Show("Invalid number of parameters for Rectangle");
+                    Canvas.ErrorMessage("Invalid number of parameters for Rectangle");
                     return;
                 }
                     
@@ -111,7 +110,7 @@ namespace ProgrammingLanguage
             {
                 if(Parameters.Length != 4)
                 {
-                    MessageBox.Show("Invalid number of parameters for Triangle");
+                    Canvas.ErrorMessage("Invalid number of parameters for Triangle");
                     return;
                 }
 
@@ -124,7 +123,7 @@ namespace ProgrammingLanguage
                 if (Parameters.Length != 2)
                 {
                     //throw new ApplicationException("\nInvalid number of parameters for Line");
-                    MessageBox.Show("Invalid number of parameters for Line");
+                    Canvas.ErrorMessage("Invalid number of parameters for Line");
                     return;
                 }
 
@@ -146,11 +145,10 @@ namespace ProgrammingLanguage
             {
                 Canvas.Reset();
             }
-            else
+            else if(Command.Equals("pen") == false)
             {
-                MessageBox.Show("Not a valid command");
+                Canvas.ErrorMessage("Please input valid commands");
             }
-
         }
     }
 }

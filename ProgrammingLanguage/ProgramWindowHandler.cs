@@ -12,7 +12,6 @@ namespace ProgrammingLanguage
         Canvas canvas;
         Parser parser;
         int maxLimit = 100;
-        bool valid;
         public ProgramWindowHandler(Parser parser)
         {
             //this.canvas = canvas;

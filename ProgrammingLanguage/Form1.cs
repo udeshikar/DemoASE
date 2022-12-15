@@ -18,7 +18,6 @@ namespace ProgrammingLanguage
         ProgramWindowHandler program;
         bool draw;
 
-
         public Form1()
         {
             InitializeComponent();

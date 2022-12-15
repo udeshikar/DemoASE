@@ -46,7 +46,7 @@ namespace ProgrammingLanguage
             if (toX < 0 || toX > XCanvasSize || toY < 0 || toY > YCanvasSize)
             {
                 //throw new ApplicationException("Invalid Screen Position");
-                MessageBox.Show("Invalid Screen Position");
+                ErrorMessage("Invalid Screen Position");
                 return;
             }
                 
@@ -66,7 +66,7 @@ namespace ProgrammingLanguage
             if (x < 0 || x > XCanvasSize || y < 0 || y > YCanvasSize)
             {
                 //throw new ApplicationException("Invalid Screen Position");
-                MessageBox.Show("Invalid Screen Position");
+                ErrorMessage("Invalid Screen Position");
                 return;
             }
 
@@ -83,7 +83,7 @@ namespace ProgrammingLanguage
             if (radius < 0)
             {
                 //throw new ApplicationException("\ninvalid size for radius");
-                MessageBox.Show("invalid size for radius");
+                ErrorMessage("invalid size for radius");
                 return;
             }
                
@@ -99,7 +99,7 @@ namespace ProgrammingLanguage
             if (width < 0 || height < 0)
             {
                 //throw new ApplicationException("\ninvalid rectangle size");
-                MessageBox.Show("invalid rectangle size");
+                ErrorMessage("invalid rectangle size");
                 return;
             }
                 
@@ -131,7 +131,7 @@ namespace ProgrammingLanguage
 
         public void Clear()
         {
-            this.draw = false;
+            this.g.Clear(Color.Transparent);
         }
 
         /// <summary>
@@ -167,9 +167,16 @@ namespace ProgrammingLanguage
             }
             else
             {
-                MessageBox.Show("Value is not accepted for given colors");
+                ErrorMessage("Value is not accepted for given colors");
                 return;
             }
+        }
+
+        public void ErrorMessage(String msg)
+        {
+            Font font = new Font("Arial", 12);
+            SolidBrush brush = new SolidBrush(Color.DarkRed);
+            g.DrawString(msg, font, brush, xPos, yPos);
         }
     }
 }

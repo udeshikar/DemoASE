@@ -15,7 +15,7 @@ namespace ProgrammingLanguage
     class Canvas
     {
         //instance data for pen and x,y positions and  graphics context
-        Graphics g, cursorG;
+        Graphics g;
         int XCanvasSize = 493; 
         int YCanvasSize = 425;
         Pen pen;

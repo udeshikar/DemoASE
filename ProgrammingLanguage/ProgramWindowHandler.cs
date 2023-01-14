@@ -25,14 +25,21 @@ namespace ProgrammingLanguage
             String[] splitText = new String[maxLimit];
 
             var variables = defineVariables(text);
-            String[] newData = generatingCommands(text, variables);
+            string[] modifiedAfterLoop = loopHandler(text, variables);
+            String[] newData = generatingCommands(modifiedAfterLoop, variables);
             string[] modifiedAfterIF = ifHandler(newData, variables);
+            
+            string[] finalData = removeVariables(modifiedAfterIF);
 
-            for (int i = 0; i < modifiedAfterIF.Length; i++)
+            if(finalData.Length != 0)
             {
-                splitText[i] = modifiedAfterIF[i].ToString().Trim().ToLower();
-                parser.ParseCommand(splitText[i], true);
+                for (int i = 0; i < finalData.Length; i++)
+                {
+                    splitText[i] = finalData[i].ToString().Trim().ToLower();
+                    parser.ParseCommand(splitText[i], true);
+                }
             }
+            
             
         }
 
@@ -46,7 +53,7 @@ namespace ProgrammingLanguage
 
             foreach (String line in text)
             {
-                if (line.Contains("="))
+                if (line.Contains("=") && !line.Contains("if"))
                 {
                     variables = line.Split('=');
                     variables[0] = variables[0].Trim();
@@ -122,7 +129,7 @@ namespace ProgrammingLanguage
 
                     String[] methodBody = ifMethodBody(text);
                     modifiedData = text.Except(methodBody).ToArray();
-                    ifFunction operationIF = new ifFunction(condition, methodBody, parser);
+                    IfFunction operationIF = new IfFunction(condition, methodBody, parser);
                     operationIF.Execute(data);
                     break;
                 }
@@ -164,8 +171,82 @@ namespace ProgrammingLanguage
             return body;
         }
 
+        public string[] loopHandler(String[] text, Dictionary<string, string> data)
+        {
+            string[] modifiedData = null;
 
+            foreach (String line in text)
+            {
+                String condition;
+                if (line.Contains("while"))
+                {
+                    String splitter = "while";
+                    string[] splitted = line.Split(new[] { splitter }, StringSplitOptions.None)
+                           .Select(value => value.Trim())
+                           .ToArray();
+                    condition = splitted[1];
 
+                    String[] methodBody = loopMethodBody(text);
+                    modifiedData = text.Except(methodBody).ToArray();
+                    LoopFunction loopF = new LoopFunction(condition, methodBody, parser);
+                    loopF.Execute(data);
+                    break;
+                }
+                else
+                {
+                    modifiedData = text;
+                }
+
+            }
+           return modifiedData;
+
+        }
+
+        public string[] loopMethodBody(string[] text)
+        {
+            int start = -1;
+            int end = -1;
+            String[] body = new string[text.Length];
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (text[i].Contains("while"))
+                {
+                    start = i;
+                }
+
+                if (text[i].Contains("endloop"))
+                {
+                    end = i;
+                }
+            }
+
+            if (start >= 0 && end >= 0)
+            {
+                body = new string[end - start + 1];
+                for (int j = 0; j < body.Length; j++)
+                {
+                    body[j] = text[start + j];
+                }
+            }
+            return body;
+        }
+
+        public string[] removeVariables(string[] text)
+        {
+            string[] latest = new string[text.Length];
+            int x = 0;
+            foreach(String line in text)
+            {
+                if (line.Contains("="))
+                {
+                    latest[x] = line;
+                    x++;
+                }
+            }
+
+            string[] result = text.Except(latest).ToArray();
+            return result;
+        }
 
     }
 }

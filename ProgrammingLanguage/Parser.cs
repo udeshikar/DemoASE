@@ -145,10 +145,10 @@ namespace ProgrammingLanguage
             {
                 Canvas.Reset();
             }
-            //else if(Command.Equals("pen") == false)
-            //{
-              //  Canvas.ErrorMessage("Please input valid commands");
-           // }
+            else if(Command.Equals("pen") == false)
+            {
+                Canvas.ErrorMessage("Please input valid commands");
+            }
         }
     }
 }

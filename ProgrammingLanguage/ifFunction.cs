@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace ProgrammingLanguage
 {
-    class ifFunction
+    class IfFunction
     {
         public string[] body = null;
         public string[] splitCondition = new string[2];
         public string condition;
         Parser parser;
 
-        public ifFunction(string condition, string[] body, Parser parser)
+        public IfFunction(string condition, string[] body, Parser parser)
         {
             this.condition = condition;
             this.body = body;

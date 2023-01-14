@@ -43,7 +43,7 @@ namespace ProgrammingLanguage
                 Canvas.ErrorMessage("Command was blank");
                 return;
             }
-           
+
             String Command;
 
             String[] split = line.Split(' ');
@@ -52,8 +52,8 @@ namespace ProgrammingLanguage
 
             Command = split[0];
 
-            
-            if (split.Length > 1 & Command.Equals("pen") == false)
+
+            if (split.Length > 1 && Command.Equals("pen") == false && Command.Equals("fill") == false && Command.Equals("color") == false)
             {
                 Parameters = split[1].Split(',');
 
@@ -144,6 +144,10 @@ namespace ProgrammingLanguage
             else if(Command.Equals("reset") == true)
             {
                 Canvas.Reset();
+            }
+            else if (Command.Equals("fill"))
+            {
+                Canvas.fillShape(split[1]);
             }
             else if(Command.Equals("pen") == false)
             {

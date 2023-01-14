@@ -22,8 +22,11 @@ namespace ProgrammingLanguage
         int xPos, yPos;
         int toX = 0;
         int toY = 0;
+        int radius, width, height;
         public bool draw = true;
         int currentX, currentY;
+        Color color = Color.Black;
+        String shape;
         
         /// <summary>
         /// Constructor initialize canvas to black pen at 0,0
@@ -88,6 +91,8 @@ namespace ProgrammingLanguage
             }
                
             g.DrawEllipse(pen, xPos-radius, yPos-radius, radius * 2, radius * 2);
+            this.shape = "circle";
+            this.radius = radius;
         }
 
         /// <summary>
@@ -104,6 +109,9 @@ namespace ProgrammingLanguage
             }
                 
             g.DrawRectangle(pen, xPos-(width/2), yPos-(width/2), width, height);
+            this.shape = "rect";
+            this.width = width;
+            this.height = height;
         }
 
         /// <summary>
@@ -146,29 +154,73 @@ namespace ProgrammingLanguage
         /// <summary>
         /// Set a given color for pen
         /// </summary>
-        /// <param name="color"></param>
-        public void PenColor(String color)
+        /// <param name="givenColor"></param>
+        public void PenColor(String givenColor)
         {
-            if(color == "red")
+            if(givenColor == "red")
             {
                 this.pen = new Pen(Color.Red, 1);
+                this.color = Color.Red;
             }
-            else if(color == "blue")
+            else if(givenColor == "blue")
             {
                 this.pen = new Pen(Color.Blue, 1);
+                this.color = Color.Blue;
             }
-            else if(color == "green")
+            else if (givenColor == "yellow")
+            {
+                this.pen = new Pen(Color.Yellow, 1);
+                this.color = Color.Yellow;
+            }
+            else if(givenColor == "green")
             {
                 this.pen = new Pen(Color.Green, 1);
+                this.color = Color.Green;
             }
-            else if(color == "black")
+            else if(givenColor == "black")
             {
                 this.pen = new Pen(Color.Black, 1);
+                this.color = Color.Black;
+            }
+            else if (givenColor == "white")
+            {
+                this.pen = new Pen(Color.White, 1);
+                this.color = Color.White;
             }
             else
             {
                 ErrorMessage("Value is not accepted for given colors");
                 return;
+            }
+        }
+
+        public void fillShape(String fill)
+        {
+            if(fill.Equals("on"))
+            {
+                if(this.shape == "circle")
+                {
+                    SolidBrush b = new SolidBrush(this.color);
+                    g.FillEllipse(b, xPos - this.radius, yPos - this.radius, this.radius * 2, this.radius * 2);
+                }
+                else if(this.shape == "rect")
+                {
+                    SolidBrush b = new SolidBrush(this.color);
+                    g.FillRectangle(b, xPos - (this.width / 2), yPos - (this.width / 2), this.width, this.height);
+                }
+            }
+            else if (fill.Equals("off"))
+            {
+                if (this.shape == "circle")
+                {
+                    SolidBrush b = new SolidBrush(Color.Transparent);
+                    g.FillEllipse(b, xPos - this.radius, yPos - this.radius, this.radius * 2, this.radius * 2);
+                }
+                else if (this.shape == "rect")
+                {
+                    SolidBrush b = new SolidBrush(Color.Transparent);
+                    g.FillRectangle(b, xPos - (this.width / 2), yPos - (this.width / 2), this.width, this.height);
+                }
             }
         }
 

@@ -50,6 +50,7 @@
     <Compile Include="Circle.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Commands.cs" />
+    <Compile Include="CONSTANTS.cs" />
     <Compile Include="DrawCommand.cs" />
     <Compile Include="DrawTo.cs" />
     <Compile Include="Form1.cs">
@@ -58,6 +59,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ifFunction.cs" />
     <Compile Include="MoveTo.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Program.cs" />

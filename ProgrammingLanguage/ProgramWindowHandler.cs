@@ -26,11 +26,12 @@ namespace ProgrammingLanguage
 
             var variables = defineVariables(text);
             String[] newData = generatingCommands(text, variables);
+            string[] modifiedAfterIF = ifHandler(newData, variables);
 
-            for (int i = 0; i < text.Length; i++)
+            for (int i = 0; i < modifiedAfterIF.Length; i++)
             {
-                splitText[i] = text[i].ToString().Trim().ToLower();
-                //parser.ParseCommand(splitText[i], true);
+                splitText[i] = modifiedAfterIF[i].ToString().Trim().ToLower();
+                parser.ParseCommand(splitText[i], true);
             }
             
         }
@@ -81,14 +82,90 @@ namespace ProgrammingLanguage
                         text[i] = command;
                     }
                 }
+                else if(commandAndValue.Length >0 && commandAndValue[0].Equals("rect"))
+                {
+                    string[] values = commandAndValue[1].Split(',');
+                    string v1 = values[0];
+                    string v2 = values[1];
+
+                    if (data.ContainsKey(v1))
+                    {
+                        v1 = data[values[0]];
+                    }
+
+                    if (data.ContainsKey(v2))
+                    {
+                        v2 = data[v2];
+                    }
+                    string command = "rect " + v1 +"," + v2;
+                    text[i] = command;
+                }
             }
 
             return text;
         }
-        
-        
-        
 
-        
+        public string[] ifHandler(String[] text, Dictionary<string, string> data)
+        {
+            string[] modifiedData = null;
+
+            foreach (String line in text)
+            {
+                String condition;
+                if (line.Contains("if"))
+                {
+                    String splitter = "if";
+                    string[] splitted = line.Split(new[] { splitter }, StringSplitOptions.None)
+                           .Select(value => value.Trim())
+                           .ToArray();
+                    condition = splitted[1];
+
+                    String[] methodBody = ifMethodBody(text);
+                    modifiedData = text.Except(methodBody).ToArray();
+                    ifFunction operationIF = new ifFunction(condition, methodBody, parser);
+                    operationIF.Execute(data);
+                    break;
+                }
+                else
+                {
+                    modifiedData = text;
+                }
+
+            }
+            return modifiedData;
+        }
+
+        public String[] ifMethodBody(String[] text)
+        {
+            int start = -1;
+            int end = -1;
+            String[] body = new string[text.Length];
+            for(int i = 0; i < text.Length; i++)
+            {
+                if (text[i].Contains("if"))
+                {
+                    start = i;
+                }
+
+                if (text[i].Contains("end"))
+                {
+                    end = i;
+                }
+            }
+
+            if (start >= 0 && end >= 0)
+            {
+                body = new string[end - start + 1];
+                for (int j = 0; j < body.Length; j++)
+                {
+                    body[j] = text[start + j];
+                }
+            }
+            return body;
+        }
+
+
+
+
     }
 }

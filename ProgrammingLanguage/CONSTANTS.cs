@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace ProgrammingLanguage
 {
-    internal class CONSTANTS
+    public class CONSTANTS
     {
+        public static string CIRCLE = "circle";
+        public static string RECTANGLE = "rectangle";
+        public static string ADD = "+";
+        public static string LESSTHAN = "<";
+        public static string GREATERTHAN = ">";
+        public static string EQUALSIF = "==";
     }
 }

@@ -20,7 +20,7 @@ namespace ProgrammingLanguage
             this.parser = parser;
         }
 
-        public void Execute(Dictionary<string, string> data)
+        public void Execute(Dictionary<string, string> userGivenVariables)
         {
             
             if (condition.Contains(CONSTANTS.EQUALSIF))
@@ -30,15 +30,15 @@ namespace ProgrammingLanguage
                        .Select(value => value.Trim())
                        .ToArray();
                 string variable = splitted[0];
-                int values = Int32.Parse(splitted[1]);
-                int value1 = 0;
+                int conditionValue2 = Int32.Parse(splitted[1]);
+                int conditionValue1 = 0;
 
-                if (data.ContainsKey(variable))
+                if (userGivenVariables.ContainsKey(variable))
                 {
-                    value1 = Int32.Parse(data[variable]);
+                    conditionValue1 = Int32.Parse(userGivenVariables[variable]);
                 }
 
-                if(value1 == values)
+                if(conditionValue1 == conditionValue2)
                 {
                     foreach(string line in body)
                     {
@@ -58,15 +58,15 @@ namespace ProgrammingLanguage
             {
                 string[] splitted = condition.Split('<');
                 string variable = splitted[0];
-                int values = Int32.Parse(splitted[1]);
-                int value1 = 0;
+                int conditionValue2 = Int32.Parse(splitted[1]);
+                int conditionValue1 = 0;
 
-                if (data.ContainsKey(variable))
+                if (userGivenVariables.ContainsKey(variable))
                 {
-                    value1 = Int32.Parse(data[variable]);
+                    conditionValue1 = Int32.Parse(userGivenVariables[variable]);
                 }
 
-                if (value1 < values)
+                if (conditionValue1 < conditionValue2)
                 {
                     foreach (string line in body)
                     {
@@ -86,15 +86,15 @@ namespace ProgrammingLanguage
             {
                 string[] splitted = condition.Split('>');
                 string variable = splitted[0];
-                int values = Int32.Parse(splitted[1]);
-                int value1 = 0;
+                int conditionValue2 = Int32.Parse(splitted[1]);
+                int conditionValue1 = 0;
 
-                if (data.ContainsKey(variable))
+                if (userGivenVariables.ContainsKey(variable))
                 {
-                    value1 = Int32.Parse(data[variable]);
+                    conditionValue1 = Int32.Parse(userGivenVariables[variable]);
                 }
 
-                if (value1 > values)
+                if (conditionValue1 > conditionValue2)
                 {
                     foreach (string line in body)
                     {

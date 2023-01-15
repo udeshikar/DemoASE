@@ -19,7 +19,7 @@ namespace ProgrammingLanguage
             this.parser = parser;
         }
 
-        public void Execute(Dictionary<string, string> data)
+        public void Execute(Dictionary<string, string> userGivenVariables)
         {
             foreach (String line in body)
             {
@@ -29,23 +29,23 @@ namespace ProgrammingLanguage
                 }
                 else
                 {
-                    String newLine1 = generatingCommands(line, data);
+                    String newLine1 = generatingCommands(line, userGivenVariables);
                     parser.ParseCommand(newLine1, true);
                 } 
             }
         }
 
-        public String generatingCommands(String text, Dictionary<string, string> data)
+        public String generatingCommands(String commandLine, Dictionary<string, string> userGivenVariables)
         {
-            String[] commandAndValue = text.ToLower().Split(' ');
+            String[] commandAndValue = commandLine.ToLower().Split(' ');
 
             if (commandAndValue.Length > 0 && commandAndValue[0].Equals("circle"))
             {
-                if (data.ContainsKey(commandAndValue[1]))
+                if (userGivenVariables.ContainsKey(commandAndValue[1]))
                 {
-                    String s = data[commandAndValue[1]];
+                    String s = userGivenVariables[commandAndValue[1]];
                     String command = "circle " + s;
-                    text = command;
+                    commandLine = command;
                 }
             }
             else if (commandAndValue.Length > 0 && commandAndValue[0].Equals("rect"))
@@ -54,21 +54,21 @@ namespace ProgrammingLanguage
                 string v1 = values[0];
                 string v2 = values[1];
 
-                if (data.ContainsKey(v1))
+                if (userGivenVariables.ContainsKey(v1))
                 {
-                    v1 = data[values[0]];
+                    v1 = userGivenVariables[values[0]];
                 }
 
-                if (data.ContainsKey(v2))
+                if (userGivenVariables.ContainsKey(v2))
                 {
-                    v2 = data[v2];
+                    v2 = userGivenVariables[v2];
                 }
                 string command = "rect " + v1 + "," + v2;
-                text = command;
+                commandLine = command;
             }
 
 
-            return text;
+            return commandLine;
         }
     }
 }

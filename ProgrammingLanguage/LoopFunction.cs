@@ -22,21 +22,25 @@ namespace ProgrammingLanguage
             this.parser = parser;
         }
 
-        public void Execute(Dictionary<string, string> data)
+        /// <summary>
+        /// Executing Loop functions provided by user
+        /// </summary>
+        /// <param name="userGivenVariables">Variables given by the user</param>
+        public void Execute(Dictionary<string, string> userGivenVariables)
         {
             if (condition.Contains(CONSTANTS.LESSTHAN))
             {
                 string[] splitted = condition.Split('<');
                 string variable = splitted[0]; // count
-                int values = Int32.Parse(splitted[1]); //5
-                int value1 = 0;
+                int conditionValue2 = Int32.Parse(splitted[1]); //5
+                int conditionValue1 = 0;
 
-                if (data.ContainsKey(variable))
+                if (userGivenVariables.ContainsKey(variable))
                 {
-                    value1 = Int32.Parse(data[variable]); //count = 1
+                    conditionValue1 = Int32.Parse(userGivenVariables[variable]); //count = 1
                 }
 
-                for(int i=value1; i < values; i++)
+                for(int i=conditionValue1; i < conditionValue2; i++)
                 {
                     foreach(String line in body)
                     {
@@ -48,23 +52,23 @@ namespace ProgrammingLanguage
                         {
                             string[] strings = line.Split('=');
                             string calculation = strings[1]; // r+10
-                            string[] abc;
+                            string[] variablesToCalculate;
                             if (calculation.Contains(CONSTANTS.ADD)) //check for plus
                             {
-                                abc = calculation.Split('+');
-                                string a = abc[0]; //r
-                                int b = Int32.Parse(abc[1]); //10
-                                if (data.ContainsKey(strings[0].Trim())) //check for r value in variable
+                                variablesToCalculate = calculation.Split('+');
+                                string value1 = variablesToCalculate[0]; //r
+                                int value2 = Int32.Parse(variablesToCalculate[1]); //10
+                                if (userGivenVariables.ContainsKey(strings[0].Trim())) //check for r value in variable
                                 {
-                                    int c = Int32.Parse(data[strings[0].Trim()]); //r=20
-                                    int x = b + c;
-                                    data[strings[0].Trim()] = x.ToString();
+                                    int c = Int32.Parse(userGivenVariables[strings[0].Trim()]); //r=20
+                                    int x = value2 + c;
+                                    userGivenVariables[strings[0].Trim()] = x.ToString();
                                 }
                             }
                         }
                         else
                         {
-                            String newLine1 = generatingCommands(line, data);
+                            String newLine1 = generatingCommands(line, userGivenVariables);
                             parser.ParseCommand(newLine1, true);
                         }
                     }
@@ -72,17 +76,23 @@ namespace ProgrammingLanguage
             }
         }
 
-        public String generatingCommands(String text, Dictionary<string, string> data)
+        /// <summary>
+        /// Generating commands by assigning variable values to commands
+        /// </summary>
+        /// <param name="commandLine">Command with a variable value</param>
+        /// <param name="userGivenVariables">Variables given by the user</param>
+        /// <returns></returns>
+        public String generatingCommands(String commandLine, Dictionary<string, string> userGivenVariables)
         {
-                String[] commandAndValue = text.ToLower().Split(' ');
+                String[] commandAndValue = commandLine.ToLower().Split(' ');
 
                 if (commandAndValue.Length > 0 && commandAndValue[0].Equals("circle"))
                 {
-                    if (data.ContainsKey(commandAndValue[1]))
+                    if (userGivenVariables.ContainsKey(commandAndValue[1]))
                     {
-                        String s = data[commandAndValue[1]];
+                        String s = userGivenVariables[commandAndValue[1]];
                         String command = "circle " + s;
-                        text = command;
+                        commandLine = command;
                     }
                 }
                 else if (commandAndValue.Length > 0 && commandAndValue[0].Equals("rect"))
@@ -91,21 +101,21 @@ namespace ProgrammingLanguage
                     string v1 = values[0];
                     string v2 = values[1];
 
-                    if (data.ContainsKey(v1))
+                    if (userGivenVariables.ContainsKey(v1))
                     {
-                        v1 = data[values[0]];
+                        v1 = userGivenVariables[values[0]];
                     }
 
-                    if (data.ContainsKey(v2))
+                    if (userGivenVariables.ContainsKey(v2))
                     {
-                        v2 = data[v2];
+                        v2 = userGivenVariables[v2];
                     }
                     string command = "rect " + v1 + "," + v2;
-                    text = command;
+                    commandLine = command;
                 }
             
 
-            return text;
+            return commandLine;
         }
     }
 }

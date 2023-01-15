@@ -10,21 +10,21 @@ namespace ProgrammingLanguage
 {
     class ProgramWindowHandler
     {
-        Canvas canvas;
         Parser parser;
         int maxLimit = 100;
-        int count = 0;
         Boolean isMethod = false;
         String methodName;
         public ProgramWindowHandler(Parser parser)
         {
-            //this.canvas = canvas;
             this.parser = parser;
         }
 
-        public void SeperateLines(String[] text)
+        /// <summary>
+        /// Execute methods, ifs, loops and commands provided by user
+        /// </summary>
+        /// <param name="text">Input text of the program window</param>
+        public void ExecuteBulkCommands(String[] text)
         {
-            //string[] text = richText.Lines;
             String[] splitText = new String[maxLimit];
 
             var variables = defineVariables(text);
@@ -42,9 +42,7 @@ namespace ProgrammingLanguage
                     splitText[i] = finalData[i].ToString().Trim().ToLower();
                     parser.ParseCommand(splitText[i], true);
                 }
-            }
-            
-            
+            }     
         }
 
         public Dictionary<string, string> defineVariables(String[] text)
@@ -77,7 +75,13 @@ namespace ProgrammingLanguage
 
         }
 
-        public String[] generatingCommands(String[] text, Dictionary<string, string> data)
+        /// <summary>
+        /// Assign variable values to commands if exists
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="userDefinedVariables"></param>
+        /// <returns></returns>
+        public String[] generatingCommands(String[] text, Dictionary<string, string> userDefinedVariables)
         {
             
             for(int i=0; i < text.Length; i++)
@@ -86,9 +90,9 @@ namespace ProgrammingLanguage
 
                 if(commandAndValue.Length > 0 && commandAndValue[0].Equals("circle"))
                 {
-                    if (data.ContainsKey(commandAndValue[1]))
+                    if (userDefinedVariables.ContainsKey(commandAndValue[1]))
                     {
-                        String s = data[commandAndValue[1]];
+                        String s = userDefinedVariables[commandAndValue[1]];
                         String command = "circle " + s;
                         text[i] = command;
                     }
@@ -99,14 +103,14 @@ namespace ProgrammingLanguage
                     string v1 = values[0];
                     string v2 = values[1];
 
-                    if (data.ContainsKey(v1))
+                    if (userDefinedVariables.ContainsKey(v1))
                     {
-                        v1 = data[values[0]];
+                        v1 = userDefinedVariables[values[0]];
                     }
 
-                    if (data.ContainsKey(v2))
+                    if (userDefinedVariables.ContainsKey(v2))
                     {
-                        v2 = data[v2];
+                        v2 = userDefinedVariables[v2];
                     }
                     string command = "rect " + v1 +"," + v2;
                     text[i] = command;
@@ -116,11 +120,17 @@ namespace ProgrammingLanguage
             return text;
         }
 
-        public string[] ifHandler(String[] text, Dictionary<string, string> data)
+        /// <summary>
+        /// Separate if condition and if method body and execute the if function class
+        /// </summary>
+        /// <param name="commandList">user defined commands list</param>
+        /// <param name="userDefinedVariables">user defined variables</param>
+        /// <returns></returns>
+        public string[] ifHandler(String[] commandList, Dictionary<string, string> userDefinedVariables)
         {
             string[] modifiedData = null;
 
-            foreach (String line in text)
+            foreach (String line in commandList)
             {
                 String condition;
                 if (line.Contains("if"))
@@ -131,21 +141,26 @@ namespace ProgrammingLanguage
                            .ToArray();
                     condition = splitted[1];
 
-                    String[] methodBody = ifMethodBody(text);
-                    modifiedData = text.Except(methodBody).ToArray();
+                    String[] methodBody = ifMethodBody(commandList);
+                    modifiedData = commandList.Except(methodBody).ToArray();
                     IfFunction operationIF = new IfFunction(condition, methodBody, parser);
-                    operationIF.Execute(data);
+                    operationIF.Execute(userDefinedVariables);
                     break;
                 }
                 else
                 {
-                    modifiedData = text;
+                    modifiedData = commandList;
                 }
 
             }
             return modifiedData;
         }
 
+        /// <summary>
+        /// Separate if method body from all the commands
+        /// </summary>
+        /// <param name="text">user defined command list</param>
+        /// <returns></returns>
         public String[] ifMethodBody(String[] text)
         {
             int start = -1;
@@ -175,11 +190,17 @@ namespace ProgrammingLanguage
             return body;
         }
 
-        public string[] loopHandler(String[] text, Dictionary<string, string> data)
+        /// <summary>
+        /// Separate loop condition and loop method body and execute the loop function class
+        /// </summary>
+        /// <param name="commandList">user defined commands list</param>
+        /// <param name="userDefinedVariables">user defined variables</param>
+        /// <returns></returns>
+        public string[] loopHandler(String[] commandList, Dictionary<string, string> userDefinedVariables)
         {
             string[] modifiedData = null;
 
-            foreach (String line in text)
+            foreach (String line in commandList)
             {
                 String condition;
                 if (line.Contains("while"))
@@ -190,15 +211,15 @@ namespace ProgrammingLanguage
                            .ToArray();
                     condition = splitted[1];
 
-                    String[] methodBody = loopMethodBody(text);
-                    modifiedData = text.Except(methodBody).ToArray();
+                    String[] methodBody = loopMethodBody(commandList);
+                    modifiedData = commandList.Except(methodBody).ToArray();
                     LoopFunction loopF = new LoopFunction(condition, methodBody, parser);
-                    loopF.Execute(data);
+                    loopF.Execute(userDefinedVariables);
                     break;
                 }
                 else
                 {
-                    modifiedData = text;
+                    modifiedData = commandList;
                 }
 
             }
@@ -206,6 +227,11 @@ namespace ProgrammingLanguage
 
         }
 
+        /// <summary>
+        /// Separate loop method body from all the commands
+        /// </summary>
+        /// <param name="text">user defined command list</param>
+        /// <returns></returns>
         public string[] loopMethodBody(string[] text)
         {
             int start = -1;
@@ -235,6 +261,11 @@ namespace ProgrammingLanguage
             return body;
         }
 
+        /// <summary>
+        /// Remove varibles declaration from all the commands user provided
+        /// </summary>
+        /// <param name="text">All the commands user provided</param>
+        /// <returns></returns>
         public string[] removeVariables(string[] text)
         {
             string[] latest = new string[text.Length];
@@ -252,12 +283,13 @@ namespace ProgrammingLanguage
             return result;
         }
 
-        public string[] methodHandler(String[] text, Dictionary<string, string> data)
+
+        public string[] methodHandler(String[] commandList, Dictionary<string, string> userDefinedVariables)
         {
-            string[] modifiedData = text;
+            string[] modifiedData = commandList;
             String[] methodbody = null;
 
-            foreach (String line in text)
+            foreach (String line in commandList)
             {
                 if (line.Contains("method"))
                 {
@@ -265,15 +297,15 @@ namespace ProgrammingLanguage
                     string[] arr2 = arr1[0].Split(' ');
                     this.methodName = arr2[1].Trim();
                     this.isMethod = true;
-                    methodbody = methodBody(text);
-                    modifiedData = text.Except(methodbody).ToArray();
+                    methodbody = methodBody(commandList);
+                    modifiedData = commandList.Except(methodbody).ToArray();
                 }
                 else if(methodName != null && line.Contains(methodName))
                 {
                     if (isMethod == true)
                     {
                         MethodFunction meth = new MethodFunction(methodbody, parser);
-                        meth.Execute(data);
+                        meth.Execute(userDefinedVariables);
                         string[] arr = new string[1];
                         arr[0] = line;
                         modifiedData = modifiedData.Except(arr).ToArray();

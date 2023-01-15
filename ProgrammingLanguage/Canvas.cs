@@ -194,32 +194,32 @@ namespace ProgrammingLanguage
             }
         }
 
-        public void fillShape(String fill)
+        public void fillShape(String fillCondition)
         {
-            if(fill.Equals("on"))
+            if(fillCondition.Equals("on"))
             {
                 if(this.shape == "circle")
                 {
-                    SolidBrush b = new SolidBrush(this.color);
-                    g.FillEllipse(b, xPos - this.radius, yPos - this.radius, this.radius * 2, this.radius * 2);
+                    SolidBrush brush = new SolidBrush(this.color);
+                    g.FillEllipse(brush, xPos - this.radius, yPos - this.radius, this.radius * 2, this.radius * 2);
                 }
                 else if(this.shape == "rect")
                 {
-                    SolidBrush b = new SolidBrush(this.color);
-                    g.FillRectangle(b, xPos - (this.width / 2), yPos - (this.width / 2), this.width, this.height);
+                    SolidBrush brush = new SolidBrush(this.color);
+                    g.FillRectangle(brush, xPos - (this.width / 2), yPos - (this.width / 2), this.width, this.height);
                 }
             }
-            else if (fill.Equals("off"))
+            else if (fillCondition.Equals("off"))
             {
                 if (this.shape == "circle")
                 {
-                    SolidBrush b = new SolidBrush(Color.Transparent);
-                    g.FillEllipse(b, xPos - this.radius, yPos - this.radius, this.radius * 2, this.radius * 2);
+                    SolidBrush brush = new SolidBrush(Color.Transparent);
+                    g.FillEllipse(brush, xPos - this.radius, yPos - this.radius, this.radius * 2, this.radius * 2);
                 }
                 else if (this.shape == "rect")
                 {
-                    SolidBrush b = new SolidBrush(Color.Transparent);
-                    g.FillRectangle(b, xPos - (this.width / 2), yPos - (this.width / 2), this.width, this.height);
+                    SolidBrush brush = new SolidBrush(Color.Transparent);
+                    g.FillRectangle(brush, xPos - (this.width / 2), yPos - (this.width / 2), this.width, this.height);
                 }
             }
         }

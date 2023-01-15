@@ -69,14 +69,14 @@ namespace ProgrammingLanguage
         {
             string[] text = ProgramWindow.Lines;
             program = new ProgramWindowHandler(parser);
-            program.SeperateLines(text);
+            program.ExecuteBulkCommands(text);
         }
 
         private void Btn_Run_Click(object sender, EventArgs e)
         {
             string[] text = ProgramWindow.Lines;
             program = new ProgramWindowHandler(parser);
-            program.SeperateLines(text);
+            program.ExecuteBulkCommands(text);
             OutputWindow.Invalidate();
             //ProgramWindow.Clear();
         }

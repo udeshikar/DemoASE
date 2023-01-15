@@ -215,5 +215,103 @@ namespace ProgrammingLanguageTests
 
 
 
+        //Tests for part two
+
+        [TestMethod]
+        public void DefineMethodTest()
+        {
+            xPos = yPos = 0;
+            pen = new Pen(Color.Black, 1);
+            MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
+            Parser parser = new Parser(MyCanvas);
+            program = new ProgramWindowHandler(parser);
+
+            String[] text = { "x=10", "y=20" };
+           
+            var map = new Dictionary<string, string>();
+            map.Add("x", "10");
+            map.Add("y", "20");
+            var result = program.DefineVariables(text);
+
+            Assert.AreEqual(result.ContainsKey("x").ToString(), map.ContainsKey("x").ToString());
+
+        }
+
+        [TestMethod]
+        public void GeneratingCommandsTest()
+        {
+            xPos = yPos = 0;
+            pen = new Pen(Color.Black, 1);
+            MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
+            Parser parser = new Parser(MyCanvas);
+            program = new ProgramWindowHandler(parser);
+
+            String[] text = new String[3];
+            text[0] = "x=10";
+            text[1] = "circle x";
+            text[2] = "y=20";
+            var map = new Dictionary<string, string>();
+            map.Add("x", "10");
+            map.Add("y", "20");
+
+            String[] result = program.GeneratingCommands(text, map);
+
+            Assert.AreEqual("circle 10", result[1].ToString());
+        }
+
+        [TestMethod]
+        public void IfHandlerTest()
+        {
+            xPos = yPos = 0;
+            pen = new Pen(Color.Black, 1);
+            MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
+            Parser parser = new Parser(MyCanvas);
+            program = new ProgramWindowHandler(parser);
+
+            String[] text = { "x=10", "if x==10", "circle x", "end" };
+            var map = new Dictionary<string, string>();
+            map.Add("x", "10");
+
+            String[] result = program.IfHandler(text, map);
+
+            Assert.AreEqual("x=10", result[0].ToString());
+        }
+
+        [TestMethod]
+        public void IfMethodBodyTest()
+        {
+            xPos = yPos = 0;
+            pen = new Pen(Color.Black, 1);
+            MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
+            Parser parser = new Parser(MyCanvas);
+            program = new ProgramWindowHandler(parser);
+
+            String[] text = { "x=10", "if x==10", "circle x", "end" };
+
+            String[] result = program.IfMethodBody(text);
+
+            Assert.AreEqual("if x==10", result[0].ToString());
+            Assert.AreEqual("circle x", result[1].ToString());
+            Assert.AreEqual("end", result[2].ToString());
+        }
+
+        [TestMethod]
+        public void LoopMethodBodyTest()
+        {
+            xPos = yPos = 0;
+            pen = new Pen(Color.Black, 1);
+            MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
+            Parser parser = new Parser(MyCanvas);
+            program = new ProgramWindowHandler(parser);
+
+            String[] text = { "x=10", "while x<10", "circle x", "endloop" };
+
+            String[] result = program.LoopMethodBody(text);
+
+            Assert.AreEqual("while x<10", result[0].ToString());
+            Assert.AreEqual("circle x", result[1].ToString());
+            Assert.AreEqual("endloop", result[2].ToString());
+        }
+
     }
 }

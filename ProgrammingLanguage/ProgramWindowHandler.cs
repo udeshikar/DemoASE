@@ -35,13 +35,13 @@ namespace ProgrammingLanguage
         {
             String[] splitText = new String[maxLimit];
 
-            var variables = defineVariables(text);
-            string[] modifiedAfterLoop = loopHandler(text, variables);
-            string[] modifiedAfterMethod = methodHandler(modifiedAfterLoop, variables);
-            String[] newData = generatingCommands(modifiedAfterMethod, variables);
-            string[] modifiedAfterIF = ifHandler(newData, variables);
+            var variables = DefineVariables(text);
+            string[] modifiedAfterLoop = LoopHandler(text, variables);
+            string[] modifiedAfterMethod = MethodHandler(modifiedAfterLoop, variables);
+            String[] newData = GeneratingCommands(modifiedAfterMethod, variables);
+            string[] modifiedAfterIF = IfHandler(newData, variables);
             
-            string[] finalData = removeVariables(modifiedAfterIF);
+            string[] finalData = RemoveVariables(modifiedAfterIF);
 
             if(finalData.Length != 0)
             {
@@ -58,7 +58,7 @@ namespace ProgrammingLanguage
         /// </summary>
         /// <param name="text">User given commands list</param>
         /// <returns>a map contains variable name as the key and number as the value</returns>
-        public Dictionary<string, string> defineVariables(String[] text)
+        public Dictionary<string, string> DefineVariables(String[] text)
         {
             String[] store = new String[maxLimit];
             String[] variables = new string[maxLimit];
@@ -66,8 +66,9 @@ namespace ProgrammingLanguage
 
 
 
-            foreach (String line in text)
+            foreach (String line1 in text)
             {
+                String line = line1.ToLower();
                 if (line.Contains("=") && !line.Contains("if"))
                 {
                     variables = line.Split('=');
@@ -94,7 +95,7 @@ namespace ProgrammingLanguage
         /// <param name="text"></param>
         /// <param name="userDefinedVariables"></param>
         /// <returns>array of commands without variables</returns>
-        public String[] generatingCommands(String[] text, Dictionary<string, string> userDefinedVariables)
+        public String[] GeneratingCommands(String[] text, Dictionary<string, string> userDefinedVariables)
         {
             
             for(int i=0; i < text.Length; i++)
@@ -139,12 +140,13 @@ namespace ProgrammingLanguage
         /// <param name="commandList">user defined commands list</param>
         /// <param name="userDefinedVariables">user defined variables</param>
         /// <returns>removed if functions from commands list provided by the user if there is any</returns>
-        public string[] ifHandler(String[] commandList, Dictionary<string, string> userDefinedVariables)
+        public string[] IfHandler(String[] commandList, Dictionary<string, string> userDefinedVariables)
         {
             string[] modifiedData = null;
 
-            foreach (String line in commandList)
+            foreach (String line1 in commandList)
             {
+                String line = line1.ToLower();
                 String condition;
                 if (line.Contains("if"))
                 {
@@ -154,7 +156,7 @@ namespace ProgrammingLanguage
                            .ToArray();
                     condition = splitted[1];
 
-                    String[] methodBody = ifMethodBody(commandList);
+                    String[] methodBody = IfMethodBody(commandList);
                     modifiedData = commandList.Except(methodBody).ToArray();
                     IfFunction operationIF = new IfFunction(condition, methodBody, parser);
                     operationIF.Execute(userDefinedVariables);
@@ -174,7 +176,7 @@ namespace ProgrammingLanguage
         /// </summary>
         /// <param name="text">user defined command list</param>
         /// <returns>commands between if and endif</returns>
-        public String[] ifMethodBody(String[] text)
+        public String[] IfMethodBody(String[] text)
         {
             int start = -1;
             int end = -1;
@@ -209,7 +211,7 @@ namespace ProgrammingLanguage
         /// <param name="commandList">user defined commands list</param>
         /// <param name="userDefinedVariables">user defined variables</param>
         /// <returns>removed loop functions from user provided commands if there is any</returns>
-        public string[] loopHandler(String[] commandList, Dictionary<string, string> userDefinedVariables)
+        public string[] LoopHandler(String[] commandList, Dictionary<string, string> userDefinedVariables)
         {
             string[] modifiedData = null;
 
@@ -224,7 +226,7 @@ namespace ProgrammingLanguage
                            .ToArray();
                     condition = splitted[1];
 
-                    String[] methodBody = loopMethodBody(commandList);
+                    String[] methodBody = LoopMethodBody(commandList);
                     modifiedData = commandList.Except(methodBody).ToArray();
                     LoopFunction loopF = new LoopFunction(condition, methodBody, parser);
                     loopF.Execute(userDefinedVariables);
@@ -245,7 +247,7 @@ namespace ProgrammingLanguage
         /// </summary>
         /// <param name="text">user defined command list</param>
         /// <returns>commands between loop and endloop keywords</returns>
-        public string[] loopMethodBody(string[] text)
+        public string[] LoopMethodBody(string[] text)
         {
             int start = -1;
             int end = -1;
@@ -279,7 +281,7 @@ namespace ProgrammingLanguage
         /// </summary>
         /// <param name="text">All the commands user provided</param>
         /// <returns>removed variable declarations from user provided command list if there is any</returns>
-        public string[] removeVariables(string[] text)
+        public string[] RemoveVariables(string[] text)
         {
             string[] latest = new string[text.Length];
             int x = 0;
@@ -302,7 +304,7 @@ namespace ProgrammingLanguage
         /// <param name="commandList">user defined commands list</param>
         /// <param name="userDefinedVariables">user defined variables</param>
         /// <returns>removed methods partition form user provided commandlist if there is any</returns>
-        public string[] methodHandler(String[] commandList, Dictionary<string, string> userDefinedVariables)
+        public string[] MethodHandler(String[] commandList, Dictionary<string, string> userDefinedVariables)
         {
             string[] modifiedData = commandList;
             String[] methodbody = null;
@@ -315,7 +317,7 @@ namespace ProgrammingLanguage
                     string[] arr2 = arr1[0].Split(' ');
                     this.methodName = arr2[1].Trim();
                     this.isMethod = true;
-                    methodbody = methodBody(commandList);
+                    methodbody = MethodBody(commandList);
                     modifiedData = commandList.Except(methodbody).ToArray();
                 }
                 else if(methodName != null && line.Contains(methodName))
@@ -339,7 +341,7 @@ namespace ProgrammingLanguage
         /// </summary>
         /// <param name="text">User provided command list</param>
         /// <returns>commands between method and endmethod keywords</returns>
-        public string[] methodBody(string[] text)
+        public string[] MethodBody(string[] text)
         {
             int start = -1;
             int end = -1;

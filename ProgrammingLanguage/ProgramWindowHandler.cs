@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,6 +14,8 @@ namespace ProgrammingLanguage
         Parser parser;
         int maxLimit = 100;
         int count = 0;
+        Boolean isMethod = false;
+        String methodName;
         public ProgramWindowHandler(Parser parser)
         {
             //this.canvas = canvas;
@@ -26,7 +29,8 @@ namespace ProgrammingLanguage
 
             var variables = defineVariables(text);
             string[] modifiedAfterLoop = loopHandler(text, variables);
-            String[] newData = generatingCommands(modifiedAfterLoop, variables);
+            string[] modifiedAfterMethod = methodHandler(modifiedAfterLoop, variables);
+            String[] newData = generatingCommands(modifiedAfterMethod, variables);
             string[] modifiedAfterIF = ifHandler(newData, variables);
             
             string[] finalData = removeVariables(modifiedAfterIF);
@@ -246,6 +250,67 @@ namespace ProgrammingLanguage
 
             string[] result = text.Except(latest).ToArray();
             return result;
+        }
+
+        public string[] methodHandler(String[] text, Dictionary<string, string> data)
+        {
+            string[] modifiedData = text;
+            String[] methodbody = null;
+
+            foreach (String line in text)
+            {
+                if (line.Contains("method"))
+                {
+                    String[] arr1 = line.Split('(');
+                    string[] arr2 = arr1[0].Split(' ');
+                    this.methodName = arr2[1].Trim();
+                    this.isMethod = true;
+                    methodbody = methodBody(text);
+                    modifiedData = text.Except(methodbody).ToArray();
+                }
+                else if(methodName != null && line.Contains(methodName))
+                {
+                    if (isMethod == true)
+                    {
+                        MethodFunction meth = new MethodFunction(methodbody, parser);
+                        meth.Execute(data);
+                        string[] arr = new string[1];
+                        arr[0] = line;
+                        modifiedData = modifiedData.Except(arr).ToArray();
+                    }
+                }
+                
+            }
+            return modifiedData;
+        }
+
+        public string[] methodBody(string[] text)
+        {
+            int start = -1;
+            int end = -1;
+            String[] body = new string[text.Length];
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (text[i].Contains("method"))
+                {
+                    start = i;
+                }
+
+                if (text[i].Contains("end"))
+                {
+                    end = i;
+                }
+            }
+
+            if (start >= 0 && end >= 0)
+            {
+                body = new string[end - start + 1];
+                for (int j = 0; j < body.Length; j++)
+                {
+                    body[j] = text[start + j];
+                }
+            }
+            return body;
         }
 
     }

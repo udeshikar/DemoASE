@@ -149,6 +149,21 @@ namespace ProgrammingLanguage
             {
                 Canvas.fillShape(split[1]);
             }
+            else if (Command.Equals("color"))
+            {
+                if (split[1].Equals("redgreen"))
+                {
+                    FlashingThreads thread1 = new FlashingThreads(Color.Red, Color.Green, Canvas);
+                }
+                else if (split[1].Equals("blueyellow"))
+                {
+
+                }
+                else if (split[1].Equals("blackwhite"))
+                {
+
+                }
+            }
             else if(Command.Equals("pen") == false)
             {
                 Canvas.ErrorMessage("Please input valid commands");

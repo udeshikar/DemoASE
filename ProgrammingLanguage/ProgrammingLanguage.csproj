@@ -53,6 +53,7 @@
     <Compile Include="CONSTANTS.cs" />
     <Compile Include="DrawCommand.cs" />
     <Compile Include="DrawTo.cs" />
+    <Compile Include="FlashingThreads.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +62,7 @@
     </Compile>
     <Compile Include="IfFunction.cs" />
     <Compile Include="LoopFunction.cs" />
+    <Compile Include="MethodFunction.cs" />
     <Compile Include="MoveTo.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Program.cs" />

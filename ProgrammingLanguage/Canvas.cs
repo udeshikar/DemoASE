@@ -224,11 +224,30 @@ namespace ProgrammingLanguage
             }
         }
 
+        public String getShape()
+        {
+            return this.shape;
+        }
+
         public void ErrorMessage(String msg)
         {
             Font font = new Font("Arial", 12);
             SolidBrush brush = new SolidBrush(Color.DarkRed);
             g.DrawString(msg, font, brush, xPos, yPos);
+        }
+
+        public void flashColors(Color color)
+        {
+            if (this.shape == "circle")
+            {
+                SolidBrush b = new SolidBrush(color);
+                g.FillEllipse(b, xPos - this.radius, yPos - this.radius, this.radius * 2, this.radius * 2);
+            }
+            else if (this.shape == "rect")
+            {
+                SolidBrush b = new SolidBrush(color);
+                g.FillRectangle(b, xPos - (this.width / 2), yPos - (this.width / 2), this.width, this.height);
+            }
         }
     }
 }

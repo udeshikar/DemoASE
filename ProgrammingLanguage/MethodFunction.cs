@@ -6,19 +6,29 @@ using System.Threading.Tasks;
 
 namespace ProgrammingLanguage
 {
+    /// <summary>
+    /// MethodFunction class execute commands that are inside of a method body
+    /// </summary>
     class MethodFunction
     {
-        //String[] variables;
         public string[] body = null;
         Parser parser;
 
+        /// <summary>
+        /// Constructor initializes values for bethod body
+        /// </summary>
+        /// <param name="body"></param>
+        /// <param name="parser"></param>
         public MethodFunction(string[] body, Parser parser)
         {
-            //this.variables = variables;
             this.body = body;
             this.parser = parser;
         }
 
+        /// <summary>
+        /// Execute methods provided by the user if the method is called
+        /// </summary>
+        /// <param name="userGivenVariables">Variables given by the user</param>
         public void Execute(Dictionary<string, string> userGivenVariables)
         {
             foreach (String line in body)
@@ -35,6 +45,12 @@ namespace ProgrammingLanguage
             }
         }
 
+        /// <summary>
+        /// Assign variable values to commands if exists
+        /// </summary>
+        /// <param name="commandLine">Command with a variable value</param>
+        /// <param name="userGivenVariables">Variables given by the user</param>
+        /// <returns>proper string command without variables</returns>
         public String generatingCommands(String commandLine, Dictionary<string, string> userGivenVariables)
         {
             String[] commandAndValue = commandLine.ToLower().Split(' ');

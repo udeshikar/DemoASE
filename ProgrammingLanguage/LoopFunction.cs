@@ -77,11 +77,11 @@ namespace ProgrammingLanguage
         }
 
         /// <summary>
-        /// Generating commands by assigning variable values to commands
+        /// Assign variable values to commands if exists
         /// </summary>
         /// <param name="commandLine">Command with a variable value</param>
         /// <param name="userGivenVariables">Variables given by the user</param>
-        /// <returns></returns>
+        /// <returns>proper command without variables</returns>
         public String generatingCommands(String commandLine, Dictionary<string, string> userGivenVariables)
         {
                 String[] commandAndValue = commandLine.ToLower().Split(' ');

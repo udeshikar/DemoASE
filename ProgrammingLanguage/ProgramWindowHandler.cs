@@ -8,12 +8,20 @@ using System.Windows.Forms;
 
 namespace ProgrammingLanguage
 {
+    /// <summary>
+    /// ProgramWindowHandler class handles the programming commands that user provides
+    /// </summary>
     class ProgramWindowHandler
     {
         Parser parser;
         int maxLimit = 100;
         Boolean isMethod = false;
         String methodName;
+
+        /// <summary>
+        /// Constructor initializes the parser to work with
+        /// </summary>
+        /// <param name="parser"></param>
         public ProgramWindowHandler(Parser parser)
         {
             this.parser = parser;
@@ -45,6 +53,11 @@ namespace ProgrammingLanguage
             }     
         }
 
+        /// <summary>
+        /// Store user defined variables and its values
+        /// </summary>
+        /// <param name="text">User given commands list</param>
+        /// <returns>a map contains variable name as the key and number as the value</returns>
         public Dictionary<string, string> defineVariables(String[] text)
         {
             String[] store = new String[maxLimit];
@@ -80,7 +93,7 @@ namespace ProgrammingLanguage
         /// </summary>
         /// <param name="text"></param>
         /// <param name="userDefinedVariables"></param>
-        /// <returns></returns>
+        /// <returns>array of commands without variables</returns>
         public String[] generatingCommands(String[] text, Dictionary<string, string> userDefinedVariables)
         {
             
@@ -121,11 +134,11 @@ namespace ProgrammingLanguage
         }
 
         /// <summary>
-        /// Separate if condition and if method body and execute the if function class
+        /// Seperate if conditions and perform if function
         /// </summary>
         /// <param name="commandList">user defined commands list</param>
         /// <param name="userDefinedVariables">user defined variables</param>
-        /// <returns></returns>
+        /// <returns>removed if functions from commands list provided by the user if there is any</returns>
         public string[] ifHandler(String[] commandList, Dictionary<string, string> userDefinedVariables)
         {
             string[] modifiedData = null;
@@ -160,7 +173,7 @@ namespace ProgrammingLanguage
         /// Separate if method body from all the commands
         /// </summary>
         /// <param name="text">user defined command list</param>
-        /// <returns></returns>
+        /// <returns>commands between if and endif</returns>
         public String[] ifMethodBody(String[] text)
         {
             int start = -1;
@@ -191,11 +204,11 @@ namespace ProgrammingLanguage
         }
 
         /// <summary>
-        /// Separate loop condition and loop method body and execute the loop function class
+        /// Separate loop function  and perform loop function
         /// </summary>
         /// <param name="commandList">user defined commands list</param>
         /// <param name="userDefinedVariables">user defined variables</param>
-        /// <returns></returns>
+        /// <returns>removed loop functions from user provided commands if there is any</returns>
         public string[] loopHandler(String[] commandList, Dictionary<string, string> userDefinedVariables)
         {
             string[] modifiedData = null;
@@ -231,7 +244,7 @@ namespace ProgrammingLanguage
         /// Separate loop method body from all the commands
         /// </summary>
         /// <param name="text">user defined command list</param>
-        /// <returns></returns>
+        /// <returns>commands between loop and endloop keywords</returns>
         public string[] loopMethodBody(string[] text)
         {
             int start = -1;
@@ -265,7 +278,7 @@ namespace ProgrammingLanguage
         /// Remove varibles declaration from all the commands user provided
         /// </summary>
         /// <param name="text">All the commands user provided</param>
-        /// <returns></returns>
+        /// <returns>removed variable declarations from user provided command list if there is any</returns>
         public string[] removeVariables(string[] text)
         {
             string[] latest = new string[text.Length];
@@ -283,7 +296,12 @@ namespace ProgrammingLanguage
             return result;
         }
 
-
+        /// <summary>
+        /// Separate method body and execute the method function class
+        /// </summary>
+        /// <param name="commandList">user defined commands list</param>
+        /// <param name="userDefinedVariables">user defined variables</param>
+        /// <returns>removed methods partition form user provided commandlist if there is any</returns>
         public string[] methodHandler(String[] commandList, Dictionary<string, string> userDefinedVariables)
         {
             string[] modifiedData = commandList;
@@ -316,6 +334,11 @@ namespace ProgrammingLanguage
             return modifiedData;
         }
 
+        /// <summary>
+        /// Seperate method body from all user provided command list
+        /// </summary>
+        /// <param name="text">User provided command list</param>
+        /// <returns>commands between method and endmethod keywords</returns>
         public string[] methodBody(string[] text)
         {
             int start = -1;

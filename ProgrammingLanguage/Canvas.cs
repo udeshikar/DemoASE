@@ -20,8 +20,6 @@ namespace ProgrammingLanguage
         int YCanvasSize = 425;
         Pen pen;
         int xPos, yPos;
-        int toX = 0;
-        int toY = 0;
         int radius, width, height;
         public bool draw = true;
         int currentX, currentY;
@@ -48,7 +46,6 @@ namespace ProgrammingLanguage
         {
             if (toX < 0 || toX > XCanvasSize || toY < 0 || toY > YCanvasSize)
             {
-                //throw new ApplicationException("Invalid Screen Position");
                 ErrorMessage("Invalid Screen Position");
                 return;
             }
@@ -56,11 +53,10 @@ namespace ProgrammingLanguage
             g.DrawLine(pen, xPos, yPos, toX, toY);
             xPos = toX;
             yPos= toY;
-           // updateCursor();
         }
 
         /// <summary>
-        /// Move the current position of the cursor
+        /// Move the current position of the cursor to the given point
         /// </summary>
         /// <param name="x">new x value</param>
         /// <param name="y">new y value</param>
@@ -78,7 +74,7 @@ namespace ProgrammingLanguage
         }
 
         /// <summary>
-        /// Draw a circle of radius around the position
+        /// Draw a circle of radius around the current position for a given radius value
         /// </summary>
         /// <param name="radius">radius of circle</param>
         public void Circle(int radius)
@@ -96,7 +92,7 @@ namespace ProgrammingLanguage
         }
 
         /// <summary>
-        /// Draw a rectangle from current pen position
+        /// Draw a rectangle from current pen position for a given width and height
         /// </summary>
         /// <param name="width">Width of the rectangle to be drawn</param>
         public void Rect(int width, int height)
@@ -115,7 +111,7 @@ namespace ProgrammingLanguage
         }
 
         /// <summary>
-        /// Draw a triangle from current pen position
+        /// Draw a triangle from current pen position for given coordinates
         /// </summary>
         /// <param name="p1">x value of second point of rectangle</param>
         /// <param name="p2">y value of second point of rectangle</param>
@@ -137,6 +133,9 @@ namespace ProgrammingLanguage
             this.DrawTo(currentX, currentY);
         }
 
+        /// <summary>
+        /// Remove all the drawings from canvas and clear it
+        /// </summary>
         public void Clear()
         {
             this.g.Clear(Color.Transparent);
@@ -154,7 +153,7 @@ namespace ProgrammingLanguage
         /// <summary>
         /// Set a given color for pen
         /// </summary>
-        /// <param name="givenColor"></param>
+        /// <param name="givenColor">Given color for pen to draw</param>
         public void PenColor(String givenColor)
         {
             if(givenColor == "red")
@@ -194,6 +193,10 @@ namespace ProgrammingLanguage
             }
         }
 
+        /// <summary>
+        /// Fill the last drawn shape with the given color or remove filling
+        /// </summary>
+        /// <param name="fillCondition">Condition to decide whether to fill the shape or not</param>
         public void fillShape(String fillCondition)
         {
             if(fillCondition.Equals("on"))
@@ -224,11 +227,10 @@ namespace ProgrammingLanguage
             }
         }
 
-        public String getShape()
-        {
-            return this.shape;
-        }
-
+        /// <summary>
+        /// Show error messages on the canvas
+        /// </summary>
+        /// <param name="msg">Message to be shown on the canvas</param>
         public void ErrorMessage(String msg)
         {
             Font font = new Font("Arial", 12);
@@ -236,6 +238,10 @@ namespace ProgrammingLanguage
             g.DrawString(msg, font, brush, xPos, yPos);
         }
 
+        /// <summary>
+        /// Fill the color of a shape using given colors
+        /// </summary>
+        /// <param name="color">Given color to fill the shape</param>
         public void flashColors(Color color)
         {
             if (this.shape == "circle")

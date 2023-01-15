@@ -23,6 +23,10 @@ namespace ProgrammingLanguage
         {
         }
 
+        /// <summary>
+        /// Constructor initializes the canvas to work on
+        /// </summary>
+        /// <param name="canvas"></param>
         public Parser(Canvas canvas)
         {
             this.Canvas = canvas;

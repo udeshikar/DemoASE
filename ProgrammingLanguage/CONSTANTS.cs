@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProgrammingLanguage
 {
+    /// <summary>
+    /// Keep the constants for ease of access
+    /// </summary>
     public class CONSTANTS
     {
         public static string CIRCLE = "circle";

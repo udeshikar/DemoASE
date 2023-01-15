@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace ProgrammingLanguage
 {
+    /// <summary>
+    /// Flashing thread class execute the thread to flash colors on shapes
+    /// </summary>
     class FlashingThreads
     {
         Thread newThread;
@@ -16,6 +19,12 @@ namespace ProgrammingLanguage
         Color color2;
         Canvas canvas;
 
+        /// <summary>
+        /// Constructor initializes the given colors and the thread 
+        /// </summary>
+        /// <param name="color1"></param>
+        /// <param name="color2"></param>
+        /// <param name="canvas"></param>
         public FlashingThreads(Color color1, Color color2, Canvas canvas)
         {
             this.color1 = color1;
@@ -25,6 +34,9 @@ namespace ProgrammingLanguage
             newThread.Start();
         }
 
+        /// <summary>
+        /// Thread method to fill two colors continuosly for a given shape
+        /// </summary>
         public void ThreadMethod()
         {
             while (true)

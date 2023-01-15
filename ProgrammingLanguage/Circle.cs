@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace ProgrammingLanguage
 {
+    /// <summary>
+    /// Circle class execute the drawing circle function on form
+    /// </summary>
     class Circle 
     {
         Canvas canvas;
         int radius;
-        String name;
 
         public Circle()
         {
@@ -19,9 +21,9 @@ namespace ProgrammingLanguage
         }
 
         /// <summary>
-        /// draw a circle around the cursor
+        /// Constructor initializes the circle to a given radius value on given canvas
         /// </summary>
-        /// <param name="Canvase">Canvase this command is affecting</param>
+        /// <param name="canvas">Canvase this command is affecting</param>
         /// <param name="radius">radius of the circle</param>
         public Circle(Canvas canvas, int radius) 
         {
@@ -29,6 +31,9 @@ namespace ProgrammingLanguage
             this.radius = radius;
         }
 
+        /// <summary>
+        /// Executing the command to draw a circle
+        /// </summary>
         public void Execute()
         {
             canvas.Circle(radius);

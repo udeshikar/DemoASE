@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProgrammingLanguage
 {
+    /// <summary>
+    /// DrawTo class execute the drawing function on form
+    /// </summary>
     class DrawTo 
     {
         protected int xPos, yPos;
@@ -16,14 +19,22 @@ namespace ProgrammingLanguage
 
         }
 
+        /// <summary>
+        /// Constructor initializes the x and y positions of the curser on given canvas
+        /// </summary>
+        /// <param name="canvas"></param>
+        /// <param name="xPos"></param>
+        /// <param name="yPos"></param>
         public DrawTo(Canvas canvas, int xPos, int yPos) 
         {
             this.canvas = canvas;
             this.xPos = xPos;
             this.yPos = yPos;
-            //Name = "DrawTo";
         }
 
+        /// <summary>
+        /// Execute the command to draw a line
+        /// </summary>
         public void Execute()
         {
             canvas.DrawTo(xPos, yPos);

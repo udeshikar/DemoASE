@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProgrammingLanguage
 {
+    /// <summary>
+    /// Triangle class execute drawing triangles on canvas
+    /// </summary>
     class Triangle
     {
         Canvas canvas;
@@ -20,6 +23,9 @@ namespace ProgrammingLanguage
             this.p4 = p4;
         }
 
+        /// <summary>
+        /// Execute command to draw a traingle
+        /// </summary>
         public void Execute()
         {
             canvas.Triangle(p1, p2, p3, p4);

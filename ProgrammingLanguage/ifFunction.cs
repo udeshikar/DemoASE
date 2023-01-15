@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProgrammingLanguage
 {
+    /// <summary>
+    /// IfFunction class perform if conditions
+    /// </summary>
     class IfFunction
     {
         public string[] body = null;
@@ -13,6 +16,12 @@ namespace ProgrammingLanguage
         public string condition;
         Parser parser;
 
+        /// <summary>
+        /// Constructor initializes the values for condition and body for if function
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <param name="body"></param>
+        /// <param name="parser"></param>
         public IfFunction(string condition, string[] body, Parser parser)
         {
             this.condition = condition;
@@ -20,6 +29,10 @@ namespace ProgrammingLanguage
             this.parser = parser;
         }
 
+        /// <summary>
+        /// Execute if conditions provided by user
+        /// </summary>
+        /// <param name="userGivenVariables">Variables given by the user</param>
         public void Execute(Dictionary<string, string> userGivenVariables)
         {
             

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace ProgrammingLanguage
 {
-    class Parser
+    public class Parser
     {
         private const int MaxParams = 10;
         Canvas Canvas;

@@ -12,7 +12,7 @@ namespace ProgrammingLanguage
     /// Canvas class holds information that is displayed on the form in response to simple programming language commands 
     /// </summary>
 
-    class Canvas
+    public class Canvas
     {
         //instance data for pen and x,y positions and  graphics context
         Graphics g;
@@ -25,6 +25,7 @@ namespace ProgrammingLanguage
         int currentX, currentY;
         Color color = Color.Black;
         String shape;
+        String errorMessage;
         
         /// <summary>
         /// Constructor initialize canvas to black pen at 0,0
@@ -97,7 +98,7 @@ namespace ProgrammingLanguage
         /// <param name="width">Width of the rectangle to be drawn</param>
         public void Rect(int width, int height)
         {
-            if (width < 0 || height < 0)
+            if (width <= 0 || height <= 0)
             {
                 //throw new ApplicationException("\ninvalid rectangle size");
                 ErrorMessage("invalid rectangle size");
@@ -236,6 +237,7 @@ namespace ProgrammingLanguage
             Font font = new Font("Arial", 12);
             SolidBrush brush = new SolidBrush(Color.DarkRed);
             g.DrawString(msg, font, brush, xPos, yPos);
+            errorMessage = msg;
         }
 
         /// <summary>
@@ -254,6 +256,41 @@ namespace ProgrammingLanguage
                 SolidBrush b = new SolidBrush(color);
                 g.FillRectangle(b, xPos - (this.width / 2), yPos - (this.width / 2), this.width, this.height);
             }
+        }
+
+        public int getxPos()
+        {
+            return xPos;
+        }
+
+        public int getyPos()
+        {
+            return yPos;
+        }
+
+        public int getRadius()
+        {
+            return this.radius;
+        }
+
+        public int getHeight()
+        {
+            return this.height;
+        }
+
+        public int getWidth()
+        {
+            return this.width;
+        }
+
+        public String getShape()
+        {
+            return this.shape;
+        }
+
+        public String getErrorMessage()
+        {
+            return errorMessage;
         }
     }
 }

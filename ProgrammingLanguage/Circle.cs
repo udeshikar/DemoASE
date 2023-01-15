@@ -10,7 +10,7 @@ namespace ProgrammingLanguage
     /// <summary>
     /// Circle class execute the drawing circle function on form
     /// </summary>
-    class Circle 
+    public class Circle 
     {
         Canvas canvas;
         int radius;

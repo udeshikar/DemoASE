@@ -11,7 +11,7 @@ namespace ProgrammingLanguage
     /// <summary>
     /// ProgramWindowHandler class handles the programming commands that user provides
     /// </summary>
-    class ProgramWindowHandler
+    public class ProgramWindowHandler
     {
         Parser parser;
         int maxLimit = 100;

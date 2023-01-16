@@ -63,8 +63,7 @@ namespace ProgrammingLanguage
             String[] store = new String[maxLimit];
             String[] variables = new string[maxLimit];
             var map = new Dictionary<string, string>();
-
-
+            var result = new Dictionary<string, string>();
 
             foreach (String line1 in text)
             {
@@ -85,7 +84,9 @@ namespace ProgrammingLanguage
                     }
                 }
             }
-            return map;
+            result = ExpressionHandler(map);
+            
+            return result;
 
         }
 
@@ -368,6 +369,50 @@ namespace ProgrammingLanguage
                 }
             }
             return body;
+        }
+
+        /// <summary>
+        /// Assign values to a variables that have functions
+        /// </summary>
+        /// <param name="map">variable and value pairs given by user</param>
+        /// <returns></returns>
+        public Dictionary<string, string> ExpressionHandler(Dictionary<string, string> map)
+        {
+            var keyCount = map.Keys.ToList();
+            foreach(String key1 in keyCount)
+            {
+                if (map[key1].Contains("+"))
+                {
+                    String[] splitValues = map[key1].Split('+');
+                    if (map.ContainsKey(splitValues[0]))
+                    {
+                        splitValues[0] = map[splitValues[0]];
+                        int total = Int32.Parse(splitValues[0]) + Int32.Parse(splitValues[1]);
+                        map[key1] = total.ToString();
+                    }
+                }
+                else if (map[key1].Contains("-"))
+                {
+                    String[] splitValues = map[key1].Split('-');
+                    if (map.ContainsKey(splitValues[0]))
+                    {
+                        splitValues[0] = map[splitValues[0]];
+                        int total = Int32.Parse(splitValues[0]) - Int32.Parse(splitValues[1]);
+                        map[key1] = total.ToString();
+                    }
+                }
+                else if (map[key1].Contains("*"))
+                {
+                    String[] splitValues = map[key1].Split('*');
+                    if (map.ContainsKey(splitValues[0]))
+                    {
+                        splitValues[0] = map[splitValues[0]];
+                        int total = Int32.Parse(splitValues[0]) * Int32.Parse(splitValues[1]);
+                        map[key1] = total.ToString();
+                    }
+                }
+            }
+            return map;
         }
 
     }

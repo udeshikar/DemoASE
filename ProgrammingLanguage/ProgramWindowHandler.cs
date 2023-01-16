@@ -43,14 +43,21 @@ namespace ProgrammingLanguage
             
             string[] finalData = RemoveVariables(modifiedAfterIF);
 
-            if(finalData.Length != 0)
+            try
             {
-                for (int i = 0; i < finalData.Length; i++)
+                if (finalData.Length != 0)
                 {
-                    splitText[i] = finalData[i].ToString().Trim().ToLower();
-                    parser.ParseCommand(splitText[i], true);
+                    for (int i = 0; i < finalData.Length; i++)
+                    {
+                        splitText[i] = finalData[i].ToString().Trim().ToLower();
+                        parser.ParseCommand(splitText[i], true);
+                    }
                 }
-            }     
+            } 
+            catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
 
         /// <summary>
@@ -284,19 +291,30 @@ namespace ProgrammingLanguage
         /// <returns>removed variable declarations from user provided command list if there is any</returns>
         public string[] RemoveVariables(string[] text)
         {
-            string[] latest = new string[text.Length];
-            int x = 0;
-            foreach(String line in text)
+            try
             {
-                if (line.Contains("="))
+                if(text != null)
                 {
-                    latest[x] = line;
-                    x++;
+                    string[] latest = new string[text.Length];
+                    int x = 0;
+                    foreach (String line in text)
+                    {
+                        if (line.Contains("="))
+                        {
+                            latest[x] = line;
+                            x++;
+                        }
+                    }
+
+                    string[] result = text.Except(latest).ToArray();
+                    return result;
                 }
             }
-
-            string[] result = text.Except(latest).ToArray();
-            return result;
+            catch(Exception ex)
+            {
+                return null;
+            }
+            return text;
         }
 
         /// <summary>
@@ -309,6 +327,8 @@ namespace ProgrammingLanguage
         {
             string[] modifiedData = commandList;
             String[] methodbody = null;
+            String perameters = null;
+            String parameterValues = null;
 
             foreach (String line in commandList)
             {
@@ -320,12 +340,15 @@ namespace ProgrammingLanguage
                     this.isMethod = true;
                     methodbody = MethodBody(commandList);
                     modifiedData = commandList.Except(methodbody).ToArray();
+
+                    perameters = getBracketData(line);
                 }
                 else if(methodName != null && line.Contains(methodName))
                 {
                     if (isMethod == true)
                     {
-                        MethodFunction meth = new MethodFunction(methodbody, parser);
+                        parameterValues = getBracketData(line);
+                        MethodFunction meth = new MethodFunction(methodbody, parser, perameters, parameterValues);
                         meth.Execute(userDefinedVariables);
                         string[] arr = new string[1];
                         arr[0] = line;
@@ -413,6 +436,17 @@ namespace ProgrammingLanguage
                 }
             }
             return map;
+        }
+
+
+        public string getBracketData(String line)
+        {
+            String result = null;
+            string[] arr1 = line.Split('(');
+            string[] arr2 = arr1[1].Split(')');
+            result = arr2[0];
+
+            return result;
         }
 
     }

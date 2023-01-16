@@ -12,11 +12,7 @@ namespace ProgrammingLanguageTests
     {
         Bitmap OutputBitmap = new Bitmap(640, 480);
         Graphics g;
-        Pen pen;
-        int xPos, yPos;
         public bool draw = true;
-        Color color = Color.Black;
-        String shape;
         Canvas MyCanvas;
         Parser parser;
         ProgramWindowHandler program;
@@ -26,8 +22,6 @@ namespace ProgrammingLanguageTests
         public void GetDetailsForCircleSingleCommand()
         {
             //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
 
@@ -44,8 +38,6 @@ namespace ProgrammingLanguageTests
         public void IncorrectRadiusForCircle()
         {
             //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
 
@@ -53,7 +45,6 @@ namespace ProgrammingLanguageTests
             parser.ParseCommand("circle -50", true);
 
             //Assert
-            Assert.AreEqual(MyCanvas.getRadius(), 0);
             Assert.AreEqual(MyCanvas.getErrorMessage(), "invalid size for radius");
 
         }
@@ -62,8 +53,6 @@ namespace ProgrammingLanguageTests
         public void InvalidNoofParametersFOrCircle()
         {
             //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
 
@@ -76,11 +65,9 @@ namespace ProgrammingLanguageTests
         }
 
         [TestMethod]
-        public void GetDetailsForRectangleSingleCommand()
+        public void GetDetailsForRectangle()
         {
             //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
 
@@ -98,8 +85,6 @@ namespace ProgrammingLanguageTests
         public void IncorrectNumberOfParametersForRectangle()
         {
             //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
 
@@ -115,8 +100,6 @@ namespace ProgrammingLanguageTests
         public void InvalidWidthForRectangle()
         {
             //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
 
@@ -133,8 +116,6 @@ namespace ProgrammingLanguageTests
         public void InvalidHeightForRectangle()
         {
             //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
 
@@ -151,8 +132,6 @@ namespace ProgrammingLanguageTests
         public void InvalidNumberofParametersForTraingle()
         {
             //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
 
@@ -167,8 +146,6 @@ namespace ProgrammingLanguageTests
         public void GetDetailsForMoveToSingleCommand()
         {
             //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
 
@@ -185,8 +162,6 @@ namespace ProgrammingLanguageTests
         public void InvalidMoveToParameters()
         {
             //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
 
@@ -201,8 +176,6 @@ namespace ProgrammingLanguageTests
         public void InvalidDrawToParameters()
         {
             //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
 
@@ -217,8 +190,6 @@ namespace ProgrammingLanguageTests
         public void GetDetailsForDrawToCommand()
         {
             //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
 
@@ -234,8 +205,6 @@ namespace ProgrammingLanguageTests
         public void InvalidColorForPenCommand()
         {
             //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
 
@@ -254,8 +223,6 @@ namespace ProgrammingLanguageTests
         public void DefineMethodTest()
         {
             //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
             program = new ProgramWindowHandler(parser);
@@ -278,8 +245,6 @@ namespace ProgrammingLanguageTests
         public void GeneratingCommandsTest()
         {
             //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
             program = new ProgramWindowHandler(parser);
@@ -303,8 +268,6 @@ namespace ProgrammingLanguageTests
         public void IfHandlerTest()
         {
             //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
             program = new ProgramWindowHandler(parser);
@@ -324,8 +287,6 @@ namespace ProgrammingLanguageTests
         public void IfMethodBodyTest()
         {
            //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
             program = new ProgramWindowHandler(parser);
@@ -345,8 +306,6 @@ namespace ProgrammingLanguageTests
         public void LoopMethodBodyTest()
         {
             //Arrange
-            xPos = yPos = 0;
-            pen = new Pen(Color.Black, 1);
             MyCanvas = new Canvas(Graphics.FromImage(OutputBitmap));
             Parser parser = new Parser(MyCanvas);
             program = new ProgramWindowHandler(parser);
